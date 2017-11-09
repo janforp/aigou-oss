@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member_go_record">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoMemberGoRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="CHAR"/>
+        <result column="code_tmp" property="codeTmp" jdbcType="TINYINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="uphoto" property="uphoto" jdbcType="VARCHAR"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="shopid" property="shopid" jdbcType="INTEGER"/>
+        <result column="shopname" property="shopname" jdbcType="VARCHAR"/>
+        <result column="shopqishu" property="shopqishu" jdbcType="INTEGER"/>
+        <result column="gonumber" property="gonumber" jdbcType="INTEGER"/>
+        <result column="goucode" property="goucode" jdbcType="VARCHAR"/>
+        <result column="moneycount" property="moneycount" jdbcType="DECIMAL"/>
+        <result column="huode" property="huode" jdbcType="CHAR"/>
+        <result column="pay_type" property="payType" jdbcType="CHAR"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="company_money" property="companyMoney" jdbcType="DECIMAL"/>
+        <result column="company_code" property="companyCode" jdbcType="CHAR"/>
+        <result column="company" property="company" jdbcType="CHAR"/>
+        <result column="time" property="time" jdbcType="CHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, code, code_tmp, username, uphoto, 
+        uid, shopid, shopname, shopqishu, gonumber, 
+        goucode, moneycount, huode, pay_type, ip, 
+        status, company_money, company_code, company, time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoMemberGoRecord">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoMemberGoRecord">
+        DELETE FROM go_member_go_record
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoMemberGoRecord">
+        INSERT INTO go_member_go_record ( code, 
+          code_tmp, username, uphoto, 
+          uid, shopid, shopname, 
+          shopqishu, gonumber, goucode, 
+          moneycount, huode, pay_type, 
+          ip, status, company_money, 
+          company_code, company, time )
+        VALUES ( #{code,jdbcType=CHAR}, 
+          #{codeTmp,jdbcType=TINYINT}, #{username,jdbcType=VARCHAR}, #{uphoto,jdbcType=VARCHAR}, 
+          #{uid,jdbcType=INTEGER}, #{shopid,jdbcType=INTEGER}, #{shopname,jdbcType=VARCHAR}, 
+          #{shopqishu,jdbcType=INTEGER}, #{gonumber,jdbcType=INTEGER}, #{goucode,jdbcType=VARCHAR}, 
+          #{moneycount,jdbcType=DECIMAL}, #{huode,jdbcType=CHAR}, #{payType,jdbcType=CHAR}, 
+          #{ip,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, #{companyMoney,jdbcType=DECIMAL}, 
+          #{companyCode,jdbcType=CHAR}, #{company,jdbcType=CHAR}, #{time,jdbcType=CHAR} )
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoMemberGoRecord">
+        INSERT INTO go_member_go_record
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="code != null">
+                code,
+            </if>
+            <if test="codeTmp != null">
+                code_tmp,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="uphoto != null">
+                uphoto,
+            </if>
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="shopid != null">
+                shopid,
+            </if>
+            <if test="shopname != null">
+                shopname,
+            </if>
+            <if test="shopqishu != null">
+                shopqishu,
+            </if>
+            <if test="gonumber != null">
+                gonumber,
+            </if>
+            <if test="goucode != null">
+                goucode,
+            </if>
+            <if test="moneycount != null">
+                moneycount,
+            </if>
+            <if test="huode != null">
+                huode,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="companyMoney != null">
+                company_money,
+            </if>
+            <if test="companyCode != null">
+                company_code,
+            </if>
+            <if test="company != null">
+                company,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="code != null">
+                #{code,jdbcType=CHAR},
+            </if>
+            <if test="codeTmp != null">
+                #{codeTmp,jdbcType=TINYINT},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="uphoto != null">
+                #{uphoto,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="shopid != null">
+                #{shopid,jdbcType=INTEGER},
+            </if>
+            <if test="shopname != null">
+                #{shopname,jdbcType=VARCHAR},
+            </if>
+            <if test="shopqishu != null">
+                #{shopqishu,jdbcType=INTEGER},
+            </if>
+            <if test="gonumber != null">
+                #{gonumber,jdbcType=INTEGER},
+            </if>
+            <if test="goucode != null">
+                #{goucode,jdbcType=VARCHAR},
+            </if>
+            <if test="moneycount != null">
+                #{moneycount,jdbcType=DECIMAL},
+            </if>
+            <if test="huode != null">
+                #{huode,jdbcType=CHAR},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=CHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="companyMoney != null">
+                #{companyMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="companyCode != null">
+                #{companyCode,jdbcType=CHAR},
+            </if>
+            <if test="company != null">
+                #{company,jdbcType=CHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=CHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_member_go_record ( code, 
+          code_tmp, username, uphoto, 
+          uid, shopid, shopname, 
+          shopqishu, gonumber, goucode, 
+          moneycount, huode, pay_type, 
+          ip, status, company_money, 
+          company_code, company, time )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.code,jdbcType=CHAR}, 
+            #{item.codeTmp,jdbcType=TINYINT}, #{item.username,jdbcType=VARCHAR}, #{item.uphoto,jdbcType=VARCHAR}, 
+            #{item.uid,jdbcType=INTEGER}, #{item.shopid,jdbcType=INTEGER}, #{item.shopname,jdbcType=VARCHAR}, 
+            #{item.shopqishu,jdbcType=INTEGER}, #{item.gonumber,jdbcType=INTEGER}, #{item.goucode,jdbcType=VARCHAR}, 
+            #{item.moneycount,jdbcType=DECIMAL}, #{item.huode,jdbcType=CHAR}, #{item.payType,jdbcType=CHAR}, 
+            #{item.ip,jdbcType=VARCHAR}, #{item.status,jdbcType=CHAR}, #{item.companyMoney,jdbcType=DECIMAL}, 
+            #{item.companyCode,jdbcType=CHAR}, #{item.company,jdbcType=CHAR}, #{item.time,jdbcType=CHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoMemberGoRecord">
+        UPDATE go_member_go_record
+        <set>
+            <if test="code != null">
+                code = #{code,jdbcType=CHAR},
+            </if>
+            <if test="codeTmp != null">
+                code_tmp = #{codeTmp,jdbcType=TINYINT},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="uphoto != null">
+                uphoto = #{uphoto,jdbcType=VARCHAR},
+            </if>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="shopid != null">
+                shopid = #{shopid,jdbcType=INTEGER},
+            </if>
+            <if test="shopname != null">
+                shopname = #{shopname,jdbcType=VARCHAR},
+            </if>
+            <if test="shopqishu != null">
+                shopqishu = #{shopqishu,jdbcType=INTEGER},
+            </if>
+            <if test="gonumber != null">
+                gonumber = #{gonumber,jdbcType=INTEGER},
+            </if>
+            <if test="goucode != null">
+                goucode = #{goucode,jdbcType=VARCHAR},
+            </if>
+            <if test="moneycount != null">
+                moneycount = #{moneycount,jdbcType=DECIMAL},
+            </if>
+            <if test="huode != null">
+                huode = #{huode,jdbcType=CHAR},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=CHAR},
+            </if>
+            <if test="ip != null">
+                ip = #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="companyMoney != null">
+                company_money = #{companyMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="companyCode != null">
+                company_code = #{companyCode,jdbcType=CHAR},
+            </if>
+            <if test="company != null">
+                company = #{company,jdbcType=CHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=CHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoMemberGoRecord">
+        UPDATE go_member_go_record
+        SET code = #{code,jdbcType=CHAR},
+            code_tmp = #{codeTmp,jdbcType=TINYINT},
+            username = #{username,jdbcType=VARCHAR},
+            uphoto = #{uphoto,jdbcType=VARCHAR},
+            uid = #{uid,jdbcType=INTEGER},
+            shopid = #{shopid,jdbcType=INTEGER},
+            shopname = #{shopname,jdbcType=VARCHAR},
+            shopqishu = #{shopqishu,jdbcType=INTEGER},
+            gonumber = #{gonumber,jdbcType=INTEGER},
+            goucode = #{goucode,jdbcType=VARCHAR},
+            moneycount = #{moneycount,jdbcType=DECIMAL},
+            huode = #{huode,jdbcType=CHAR},
+            pay_type = #{payType,jdbcType=CHAR},
+            ip = #{ip,jdbcType=VARCHAR},
+            status = #{status,jdbcType=CHAR},
+            company_money = #{companyMoney,jdbcType=DECIMAL},
+            company_code = #{companyCode,jdbcType=CHAR},
+            company = #{company,jdbcType=CHAR},
+            time = #{time,jdbcType=CHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

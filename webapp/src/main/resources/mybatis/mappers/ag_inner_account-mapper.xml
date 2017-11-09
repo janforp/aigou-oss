@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_inner_account">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgInnerAccount">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT user_id
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgInnerAccount">
+        <include refid="ag_inner_account.SELECT_All_Column"/>
+        FROM ag_inner_account
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgInnerAccount">
+        DELETE FROM ag_inner_account
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgInnerAccount">
+        INSERT INTO ag_inner_account ( user_id )
+        VALUES ( #{userId,jdbcType=INTEGER} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgInnerAccount">
+        INSERT INTO ag_inner_account
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                user_id,
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{userId,jdbcType=INTEGER},
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_inner_account ( user_id )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.userId,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgInnerAccount">
+        UPDATE ag_inner_account
+        <set>
+        </set>
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgInnerAccount">
+        UPDATE ag_inner_account
+
+        WHERE user_id = #{userId,jdbcType=INTEGER}
+    </update>
+</mapper>

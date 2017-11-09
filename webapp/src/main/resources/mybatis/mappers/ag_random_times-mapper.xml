@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_random_times">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgRandomTimes">
+        <id column="buy_times" property="buyTimes" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT buy_times
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgRandomTimes">
+        <include refid="ag_random_times.SELECT_All_Column"/>
+        FROM ag_random_times
+        WHERE buy_times = #{buyTimes,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgRandomTimes">
+        DELETE FROM ag_random_times
+        WHERE buy_times = #{buyTimes,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgRandomTimes">
+        INSERT INTO ag_random_times ( buy_times )
+        VALUES ( #{buyTimes,jdbcType=INTEGER} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgRandomTimes">
+        INSERT INTO ag_random_times
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                buy_times,
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{buyTimes,jdbcType=INTEGER},
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_random_times ( buy_times )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.buyTimes,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgRandomTimes">
+        UPDATE ag_random_times
+        <set>
+        </set>
+        WHERE buy_times = #{buyTimes,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgRandomTimes">
+        UPDATE ag_random_times
+
+        WHERE buy_times = #{buyTimes,jdbcType=INTEGER}
+    </update>
+</mapper>

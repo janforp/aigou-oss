@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_shopcodes_1">
+
+    <select id="selectShopcodesBySid" resultMap="BaseResultMap" parameterType="Integer">
+        <include refid="go_shopcodes_1.SELECT_All_Column"/>
+        FROM go_shopcodes_1
+        WHERE s_id = #{sid,jdbcType=INTEGER}
+        ORDER BY s_cid DESC limit 1 for update
+    </select>
+
+    <select id="selectShopcodesListBySid" resultMap="BaseResultMap" parameterType="Integer">
+        <include refid="go_shopcodes_1.SELECT_All_Column"/>
+        FROM go_shopcodes_1
+        WHERE s_id = #{sid,jdbcType=INTEGER}
+        ORDER BY s_cid DESC
+    </select>
+
+    <select id="selectShopcodesBySidAndScid" resultMap="BaseResultMap" parameterType="Map">
+        <include refid="go_shopcodes_1.SELECT_All_Column"/>
+        FROM go_shopcodes_1
+        WHERE s_id = #{sid,jdbcType=INTEGER}
+        AND s_cid = #{scid,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectSumSlen" resultType="Integer" parameterType="Integer">
+        SELECT sum(s_len) as num
+        FROM go_shopcodes_1
+        WHERE s_id = #{sid,jdbcType=INTEGER}
+    </select>
+
+</mapper>

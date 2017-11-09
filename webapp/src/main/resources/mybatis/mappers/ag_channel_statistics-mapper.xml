@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_channel_statistics">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgChannelStatistics">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="package_name" property="packageName" jdbcType="VARCHAR"/>
+        <result column="channel_name" property="channelName" jdbcType="VARCHAR"/>
+        <result column="day_people" property="dayPeople" jdbcType="INTEGER"/>
+        <result column="day_recharge" property="dayRecharge" jdbcType="DECIMAL"/>
+        <result column="day_time" property="dayTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, package_name, channel_name, day_people, day_recharge, 
+        day_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgChannelStatistics">
+        <include refid="ag_channel_statistics.SELECT_All_Column"/>
+        FROM ag_channel_statistics
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgChannelStatistics">
+        DELETE FROM ag_channel_statistics
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgChannelStatistics">
+        INSERT INTO ag_channel_statistics ( package_name, 
+          channel_name, day_people, day_recharge, 
+          day_time )
+        VALUES ( #{packageName,jdbcType=VARCHAR}, 
+          #{channelName,jdbcType=VARCHAR}, #{dayPeople,jdbcType=INTEGER}, #{dayRecharge,jdbcType=DECIMAL}, 
+          #{dayTime,jdbcType=VARCHAR} )
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgChannelStatistics">
+        INSERT INTO ag_channel_statistics
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="packageName != null">
+                package_name,
+            </if>
+            <if test="channelName != null">
+                channel_name,
+            </if>
+            <if test="dayPeople != null">
+                day_people,
+            </if>
+            <if test="dayRecharge != null">
+                day_recharge,
+            </if>
+            <if test="dayTime != null">
+                day_time,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="packageName != null">
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="channelName != null">
+                #{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="dayPeople != null">
+                #{dayPeople,jdbcType=INTEGER},
+            </if>
+            <if test="dayRecharge != null">
+                #{dayRecharge,jdbcType=DECIMAL},
+            </if>
+            <if test="dayTime != null">
+                #{dayTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_channel_statistics ( package_name, 
+          channel_name, day_people, day_recharge, 
+          day_time )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.packageName,jdbcType=VARCHAR}, 
+            #{item.channelName,jdbcType=VARCHAR}, #{item.dayPeople,jdbcType=INTEGER}, #{item.dayRecharge,jdbcType=DECIMAL}, 
+            #{item.dayTime,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgChannelStatistics">
+        UPDATE ag_channel_statistics
+        <set>
+            <if test="packageName != null">
+                package_name = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="channelName != null">
+                channel_name = #{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="dayPeople != null">
+                day_people = #{dayPeople,jdbcType=INTEGER},
+            </if>
+            <if test="dayRecharge != null">
+                day_recharge = #{dayRecharge,jdbcType=DECIMAL},
+            </if>
+            <if test="dayTime != null">
+                day_time = #{dayTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgChannelStatistics">
+        UPDATE ag_channel_statistics
+        SET package_name = #{packageName,jdbcType=VARCHAR},
+            channel_name = #{channelName,jdbcType=VARCHAR},
+            day_people = #{dayPeople,jdbcType=INTEGER},
+            day_recharge = #{dayRecharge,jdbcType=DECIMAL},
+            day_time = #{dayTime,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

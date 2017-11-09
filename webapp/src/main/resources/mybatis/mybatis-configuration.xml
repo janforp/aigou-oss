@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.orgwy_blocked_device-mapper.xml//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <mappers>
+        <!--<mapper resource="mybatis/mappers/*-mapper.xml"/>-->
+        <!--<mapper resource="mybatis/mappers/*-custom-mapper.xml"/>-->
+        <mapper resource="mybatis/mappers/go_shaidan-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_shaidan-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_shoplist-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_shoplist-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_go_record-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_go_record-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_channel_statistics-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_channel_statistics-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_channel_relation-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_channel_relation-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_user_channel-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_user_channel-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_user_recharge_channel-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_user_recharge_channel-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_dizhi-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_dizhi-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_menu_module-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_menu_module-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_menu_function-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_menu_function-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_role-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_role-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_rel_role_menu_function-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_rel_role_menu_function-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_admin-mapper.xml"/>
+        <mapper resource="mybatis/mappers/oss_admin-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_shop_allow_gain-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_shop_allow_gain-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_inner_account-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_inner_account-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_param_config-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_param_config-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_random_times-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_random_times-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_shopcodes_1-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_shopcodes_1-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_account-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_addmoney_record-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_member_addmoney_record-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_allow_gain_times-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_allow_gain_times-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_app_pay-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_app_pay-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_recommend_shop-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_recommend_shop-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_shop_allow_gain-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_shop_allow_gain-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_banner-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_banner-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_discover_config-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_discover_config-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_brand-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_brand-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_category-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/go_category-mapper.xml"/>
+
+        <mapper resource="mybatis/mappers/ag_category-custom-mapper.xml"/>
+        <mapper resource="mybatis/mappers/ag_category-mapper.xml"/>
+    </mappers>
+</configuration>

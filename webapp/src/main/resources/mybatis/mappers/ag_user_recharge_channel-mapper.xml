@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_user_recharge_channel">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgUserRechargeChannel">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="platform" property="platform" jdbcType="TINYINT"/>
+        <result column="package_name" property="packageName" jdbcType="VARCHAR"/>
+        <result column="channel_name" property="channelName" jdbcType="VARCHAR"/>
+        <result column="recharge_money" property="rechargeMoney" jdbcType="DECIMAL"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, uid, platform, package_name, channel_name, 
+        recharge_money, create_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgUserRechargeChannel">
+        <include refid="ag_user_recharge_channel.SELECT_All_Column"/>
+        FROM ag_user_recharge_channel
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgUserRechargeChannel">
+        DELETE FROM ag_user_recharge_channel
+        WHERE id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgUserRechargeChannel">
+        INSERT INTO ag_user_recharge_channel ( uid, 
+          platform, package_name, channel_name, 
+          recharge_money, create_time )
+        VALUES ( #{uid,jdbcType=INTEGER}, 
+          #{platform,jdbcType=TINYINT}, #{packageName,jdbcType=VARCHAR}, #{channelName,jdbcType=VARCHAR}, 
+          #{rechargeMoney,jdbcType=DECIMAL}, #{createTime,jdbcType=VARCHAR} )
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgUserRechargeChannel">
+        INSERT INTO ag_user_recharge_channel
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="platform != null">
+                platform,
+            </if>
+            <if test="packageName != null">
+                package_name,
+            </if>
+            <if test="channelName != null">
+                channel_name,
+            </if>
+            <if test="rechargeMoney != null">
+                recharge_money,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="platform != null">
+                #{platform,jdbcType=TINYINT},
+            </if>
+            <if test="packageName != null">
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="channelName != null">
+                #{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="rechargeMoney != null">
+                #{rechargeMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_user_recharge_channel ( uid, 
+          platform, package_name, channel_name, 
+          recharge_money, create_time )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.uid,jdbcType=INTEGER}, 
+            #{item.platform,jdbcType=TINYINT}, #{item.packageName,jdbcType=VARCHAR}, #{item.channelName,jdbcType=VARCHAR}, 
+            #{item.rechargeMoney,jdbcType=DECIMAL}, #{item.createTime,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgUserRechargeChannel">
+        UPDATE ag_user_recharge_channel
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="platform != null">
+                platform = #{platform,jdbcType=TINYINT},
+            </if>
+            <if test="packageName != null">
+                package_name = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="channelName != null">
+                channel_name = #{channelName,jdbcType=VARCHAR},
+            </if>
+            <if test="rechargeMoney != null">
+                recharge_money = #{rechargeMoney,jdbcType=DECIMAL},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgUserRechargeChannel">
+        UPDATE ag_user_recharge_channel
+        SET uid = #{uid,jdbcType=INTEGER},
+            platform = #{platform,jdbcType=TINYINT},
+            package_name = #{packageName,jdbcType=VARCHAR},
+            channel_name = #{channelName,jdbcType=VARCHAR},
+            recharge_money = #{rechargeMoney,jdbcType=DECIMAL},
+            create_time = #{createTime,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

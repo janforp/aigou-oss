@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_shaidan">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoShaidan">
+        <id column="sd_id" property="sdId" jdbcType="INTEGER"/>
+        <result column="sd_userid" property="sdUserid" jdbcType="INTEGER"/>
+        <result column="sd_shopid" property="sdShopid" jdbcType="INTEGER"/>
+        <result column="sd_qishu" property="sdQishu" jdbcType="INTEGER"/>
+        <result column="sd_ip" property="sdIp" jdbcType="VARCHAR"/>
+        <result column="sd_title" property="sdTitle" jdbcType="VARCHAR"/>
+        <result column="sd_thumbs" property="sdThumbs" jdbcType="VARCHAR"/>
+        <result column="sd_content" property="sdContent" jdbcType="VARCHAR"/>
+        <result column="sd_photolist" property="sdPhotolist" jdbcType="VARCHAR"/>
+        <result column="sd_zhan" property="sdZhan" jdbcType="INTEGER"/>
+        <result column="sd_ping" property="sdPing" jdbcType="INTEGER"/>
+        <result column="sd_time" property="sdTime" jdbcType="INTEGER"/>
+        <result column="sd_shopsid" property="sdShopsid" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT sd_id, sd_userid, sd_shopid, sd_qishu, sd_ip, 
+        sd_title, sd_thumbs, sd_content, sd_photolist, sd_zhan, 
+        sd_ping, sd_time, sd_shopsid
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoShaidan">
+        <include refid="go_shaidan.SELECT_All_Column"/>
+        FROM go_shaidan
+        WHERE sd_id = #{sdId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoShaidan">
+        DELETE FROM go_shaidan
+        WHERE sd_id = #{sdId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoShaidan">
+        INSERT INTO go_shaidan ( sd_userid, 
+          sd_shopid, sd_qishu, sd_ip, 
+          sd_title, sd_thumbs, sd_content, 
+          sd_photolist, sd_zhan, sd_ping, 
+          sd_time, sd_shopsid )
+        VALUES ( #{sdUserid,jdbcType=INTEGER}, 
+          #{sdShopid,jdbcType=INTEGER}, #{sdQishu,jdbcType=INTEGER}, #{sdIp,jdbcType=VARCHAR}, 
+          #{sdTitle,jdbcType=VARCHAR}, #{sdThumbs,jdbcType=VARCHAR}, #{sdContent,jdbcType=VARCHAR}, 
+          #{sdPhotolist,jdbcType=VARCHAR}, #{sdZhan,jdbcType=INTEGER}, #{sdPing,jdbcType=INTEGER}, 
+          #{sdTime,jdbcType=INTEGER}, #{sdShopsid,jdbcType=INTEGER} )
+        <selectKey keyProperty="sdId" resultType="int">
+            SELECT LAST_INSERT_ID() AS sdId
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoShaidan">
+        INSERT INTO go_shaidan
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="sdUserid != null">
+                sd_userid,
+            </if>
+            <if test="sdShopid != null">
+                sd_shopid,
+            </if>
+            <if test="sdQishu != null">
+                sd_qishu,
+            </if>
+            <if test="sdIp != null">
+                sd_ip,
+            </if>
+            <if test="sdTitle != null">
+                sd_title,
+            </if>
+            <if test="sdThumbs != null">
+                sd_thumbs,
+            </if>
+            <if test="sdContent != null">
+                sd_content,
+            </if>
+            <if test="sdPhotolist != null">
+                sd_photolist,
+            </if>
+            <if test="sdZhan != null">
+                sd_zhan,
+            </if>
+            <if test="sdPing != null">
+                sd_ping,
+            </if>
+            <if test="sdTime != null">
+                sd_time,
+            </if>
+            <if test="sdShopsid != null">
+                sd_shopsid,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="sdUserid != null">
+                #{sdUserid,jdbcType=INTEGER},
+            </if>
+            <if test="sdShopid != null">
+                #{sdShopid,jdbcType=INTEGER},
+            </if>
+            <if test="sdQishu != null">
+                #{sdQishu,jdbcType=INTEGER},
+            </if>
+            <if test="sdIp != null">
+                #{sdIp,jdbcType=VARCHAR},
+            </if>
+            <if test="sdTitle != null">
+                #{sdTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="sdThumbs != null">
+                #{sdThumbs,jdbcType=VARCHAR},
+            </if>
+            <if test="sdContent != null">
+                #{sdContent,jdbcType=VARCHAR},
+            </if>
+            <if test="sdPhotolist != null">
+                #{sdPhotolist,jdbcType=VARCHAR},
+            </if>
+            <if test="sdZhan != null">
+                #{sdZhan,jdbcType=INTEGER},
+            </if>
+            <if test="sdPing != null">
+                #{sdPing,jdbcType=INTEGER},
+            </if>
+            <if test="sdTime != null">
+                #{sdTime,jdbcType=INTEGER},
+            </if>
+            <if test="sdShopsid != null">
+                #{sdShopsid,jdbcType=INTEGER},
+            </if>
+        </trim>
+        <selectKey keyProperty="sdId" resultType="int">
+            SELECT LAST_INSERT_ID() AS sdId
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_shaidan ( sd_userid, 
+          sd_shopid, sd_qishu, sd_ip, 
+          sd_title, sd_thumbs, sd_content, 
+          sd_photolist, sd_zhan, sd_ping, 
+          sd_time, sd_shopsid )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.sdUserid,jdbcType=INTEGER}, 
+            #{item.sdShopid,jdbcType=INTEGER}, #{item.sdQishu,jdbcType=INTEGER}, #{item.sdIp,jdbcType=VARCHAR}, 
+            #{item.sdTitle,jdbcType=VARCHAR}, #{item.sdThumbs,jdbcType=VARCHAR}, #{item.sdContent,jdbcType=VARCHAR}, 
+            #{item.sdPhotolist,jdbcType=VARCHAR}, #{item.sdZhan,jdbcType=INTEGER}, #{item.sdPing,jdbcType=INTEGER}, 
+            #{item.sdTime,jdbcType=INTEGER}, #{item.sdShopsid,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoShaidan">
+        UPDATE go_shaidan
+        <set>
+            <if test="sdUserid != null">
+                sd_userid = #{sdUserid,jdbcType=INTEGER},
+            </if>
+            <if test="sdShopid != null">
+                sd_shopid = #{sdShopid,jdbcType=INTEGER},
+            </if>
+            <if test="sdQishu != null">
+                sd_qishu = #{sdQishu,jdbcType=INTEGER},
+            </if>
+            <if test="sdIp != null">
+                sd_ip = #{sdIp,jdbcType=VARCHAR},
+            </if>
+            <if test="sdTitle != null">
+                sd_title = #{sdTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="sdThumbs != null">
+                sd_thumbs = #{sdThumbs,jdbcType=VARCHAR},
+            </if>
+            <if test="sdContent != null">
+                sd_content = #{sdContent,jdbcType=VARCHAR},
+            </if>
+            <if test="sdPhotolist != null">
+                sd_photolist = #{sdPhotolist,jdbcType=VARCHAR},
+            </if>
+            <if test="sdZhan != null">
+                sd_zhan = #{sdZhan,jdbcType=INTEGER},
+            </if>
+            <if test="sdPing != null">
+                sd_ping = #{sdPing,jdbcType=INTEGER},
+            </if>
+            <if test="sdTime != null">
+                sd_time = #{sdTime,jdbcType=INTEGER},
+            </if>
+            <if test="sdShopsid != null">
+                sd_shopsid = #{sdShopsid,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE sd_id = #{sdId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoShaidan">
+        UPDATE go_shaidan
+        SET sd_userid = #{sdUserid,jdbcType=INTEGER},
+            sd_shopid = #{sdShopid,jdbcType=INTEGER},
+            sd_qishu = #{sdQishu,jdbcType=INTEGER},
+            sd_ip = #{sdIp,jdbcType=VARCHAR},
+            sd_title = #{sdTitle,jdbcType=VARCHAR},
+            sd_thumbs = #{sdThumbs,jdbcType=VARCHAR},
+            sd_content = #{sdContent,jdbcType=VARCHAR},
+            sd_photolist = #{sdPhotolist,jdbcType=VARCHAR},
+            sd_zhan = #{sdZhan,jdbcType=INTEGER},
+            sd_ping = #{sdPing,jdbcType=INTEGER},
+            sd_time = #{sdTime,jdbcType=INTEGER},
+            sd_shopsid = #{sdShopsid,jdbcType=INTEGER}
+        WHERE sd_id = #{sdId,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_shopcodes_1">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoShopcodes1">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="s_id" property="sId" jdbcType="INTEGER"/>
+        <result column="s_cid" property="sCid" jdbcType="INTEGER"/>
+        <result column="s_len" property="sLen" jdbcType="INTEGER"/>
+        <result column="s_codes" property="sCodes" jdbcType="VARCHAR"/>
+        <result column="s_codes_tmp" property="sCodesTmp" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, s_id, s_cid, s_len, s_codes, 
+        s_codes_tmp
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoShopcodes1">
+        <include refid="go_shopcodes_1.SELECT_All_Column"/>
+        FROM go_shopcodes_1
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoShopcodes1">
+        DELETE FROM go_shopcodes_1
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoShopcodes1">
+        INSERT INTO go_shopcodes_1 ( s_id, 
+          s_cid, s_len, s_codes, 
+          s_codes_tmp )
+        VALUES ( #{sId,jdbcType=INTEGER}, 
+          #{sCid,jdbcType=INTEGER}, #{sLen,jdbcType=INTEGER}, #{sCodes,jdbcType=VARCHAR}, 
+          #{sCodesTmp,jdbcType=VARCHAR} )
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoShopcodes1">
+        INSERT INTO go_shopcodes_1
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="sId != null">
+                s_id,
+            </if>
+            <if test="sCid != null">
+                s_cid,
+            </if>
+            <if test="sLen != null">
+                s_len,
+            </if>
+            <if test="sCodes != null">
+                s_codes,
+            </if>
+            <if test="sCodesTmp != null">
+                s_codes_tmp,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="sId != null">
+                #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="sCid != null">
+                #{sCid,jdbcType=INTEGER},
+            </if>
+            <if test="sLen != null">
+                #{sLen,jdbcType=INTEGER},
+            </if>
+            <if test="sCodes != null">
+                #{sCodes,jdbcType=VARCHAR},
+            </if>
+            <if test="sCodesTmp != null">
+                #{sCodesTmp,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_shopcodes_1 ( s_id, 
+          s_cid, s_len, s_codes, 
+          s_codes_tmp )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.sId,jdbcType=INTEGER}, 
+            #{item.sCid,jdbcType=INTEGER}, #{item.sLen,jdbcType=INTEGER}, #{item.sCodes,jdbcType=VARCHAR}, 
+            #{item.sCodesTmp,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoShopcodes1">
+        UPDATE go_shopcodes_1
+        <set>
+            <if test="sId != null">
+                s_id = #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="sCid != null">
+                s_cid = #{sCid,jdbcType=INTEGER},
+            </if>
+            <if test="sLen != null">
+                s_len = #{sLen,jdbcType=INTEGER},
+            </if>
+            <if test="sCodes != null">
+                s_codes = #{sCodes,jdbcType=VARCHAR},
+            </if>
+            <if test="sCodesTmp != null">
+                s_codes_tmp = #{sCodesTmp,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoShopcodes1">
+        UPDATE go_shopcodes_1
+        SET s_id = #{sId,jdbcType=INTEGER},
+            s_cid = #{sCid,jdbcType=INTEGER},
+            s_len = #{sLen,jdbcType=INTEGER},
+            s_codes = #{sCodes,jdbcType=VARCHAR},
+            s_codes_tmp = #{sCodesTmp,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

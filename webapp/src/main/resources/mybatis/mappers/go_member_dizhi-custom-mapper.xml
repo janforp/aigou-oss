@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member_dizhi">
+
+    <select id="selectAddressByUidAndDefault" parameterType="int" resultMap="BaseResultMap">
+        <include refid="go_member_dizhi.SELECT_All_Column"/>
+        FROM    go_member_dizhi
+        WHERE   uid = #{userId,jdbcType = INTEGER}
+        AND     `default` = 'Y'
+    </select>
+
+    <select id="selectAddressesByUid" parameterType="int" resultMap="BaseResultMap">
+        <include refid="go_member_dizhi.SELECT_All_Column"/>
+        FROM    go_member_dizhi
+        WHERE   uid = #{useId,jdbcType = INTEGER}
+    </select>
+
+</mapper>

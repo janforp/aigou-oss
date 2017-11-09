@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_allow_gain_times">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgAllowGainTimes">
+        <id column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="times" property="times" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT uid, times
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgAllowGainTimes">
+        <include refid="ag_allow_gain_times.SELECT_All_Column"/>
+        FROM ag_allow_gain_times
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgAllowGainTimes">
+        DELETE FROM ag_allow_gain_times
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgAllowGainTimes">
+        INSERT INTO ag_allow_gain_times ( uid, 
+          times )
+        VALUES ( #{uid,jdbcType=INTEGER}, 
+          #{times,jdbcType=INTEGER} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgAllowGainTimes">
+        INSERT INTO ag_allow_gain_times
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                uid,
+            <if test="times != null">
+                times,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{uid,jdbcType=INTEGER},
+            <if test="times != null">
+                #{times,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_allow_gain_times ( uid, 
+          times )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.uid,jdbcType=INTEGER}, 
+            #{item.times,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgAllowGainTimes">
+        UPDATE ag_allow_gain_times
+        <set>
+            <if test="times != null">
+                times = #{times,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgAllowGainTimes">
+        UPDATE ag_allow_gain_times
+        SET times = #{times,jdbcType=INTEGER}
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </update>
+</mapper>

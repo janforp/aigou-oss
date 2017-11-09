@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_channel_relation">
+
+    <select id="selectRelation" parameterType="String" resultMap="BaseResultMap">
+        <include refid="ag_channel_relation.SELECT_All_Column"/>
+        FROM ag_channel_relation
+        WHERE relation_name = #{relationName,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAllRelation" resultMap="BaseResultMap">
+        <include refid="ag_channel_relation.SELECT_All_Column"/>
+        FROM ag_channel_relation
+    </select>
+
+</mapper>

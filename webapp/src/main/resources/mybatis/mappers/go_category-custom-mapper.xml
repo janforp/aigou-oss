@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_category">
+
+    <select id="getParentCate" resultMap="BaseResultMap">
+        <include refid="go_category.SELECT_All_Column"/>
+        FROM      go_category
+        WHERE     parentid = '0'
+        AND       model = '1'
+        ORDER     BY cateid ASC
+    </select>
+
+    <select id="getSonCateByParentCateId" resultMap="BaseResultMap" parameterType="int">
+        <include refid="go_category.SELECT_All_Column"/>
+        FROM      go_category
+        WHERE     parentid = #{parentId,jdbcType=INTEGER}
+        ORDER     BY cateid ASC
+    </select>
+
+    <select id="selectCateByName" resultMap="BaseResultMap" parameterType="string">
+        <include refid="go_category.SELECT_All_Column"/>
+        FROM      go_category
+        WHERE     name = #{name,jdbcType=VARCHAR}
+    </select>
+</mapper>

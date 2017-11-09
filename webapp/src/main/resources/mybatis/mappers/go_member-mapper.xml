@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoMember">
+        <id column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="CHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="CHAR"/>
+        <result column="password" property="password" jdbcType="CHAR"/>
+        <result column="user_ip" property="userIp" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="qianming" property="qianming" jdbcType="VARCHAR"/>
+        <result column="groupid" property="groupid" jdbcType="TINYINT"/>
+        <result column="addgroup" property="addgroup" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="yongjin" property="yongjin" jdbcType="DECIMAL"/>
+        <result column="emailcode" property="emailcode" jdbcType="CHAR"/>
+        <result column="mobilecode" property="mobilecode" jdbcType="CHAR"/>
+        <result column="passcode" property="passcode" jdbcType="CHAR"/>
+        <result column="reg_key" property="regKey" jdbcType="VARCHAR"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="jingyan" property="jingyan" jdbcType="INTEGER"/>
+        <result column="yaoqing" property="yaoqing" jdbcType="INTEGER"/>
+        <result column="band" property="band" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="INTEGER"/>
+        <result column="login_time" property="loginTime" jdbcType="INTEGER"/>
+        <result column="sign_in_time" property="signInTime" jdbcType="INTEGER"/>
+        <result column="sign_in_date" property="signInDate" jdbcType="CHAR"/>
+        <result column="sign_in_time_all" property="signInTimeAll" jdbcType="INTEGER"/>
+        <result column="auto_user" property="autoUser" jdbcType="TINYINT"/>
+        <result column="h2" property="h2" jdbcType="INTEGER"/>
+        <result column="h3" property="h3" jdbcType="INTEGER"/>
+        <result column="h4" property="h4" jdbcType="INTEGER"/>
+        <result column="h5" property="h5" jdbcType="INTEGER"/>
+        <result column="y1" property="y1" jdbcType="DECIMAL"/>
+        <result column="y2" property="y2" jdbcType="DECIMAL"/>
+        <result column="y3" property="y3" jdbcType="DECIMAL"/>
+        <result column="y4" property="y4" jdbcType="DECIMAL"/>
+        <result column="y5" property="y5" jdbcType="DECIMAL"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT uid, username, email, mobile, password, 
+        user_ip, img, qianming, groupid, addgroup, 
+        money, yongjin, emailcode, mobilecode, passcode, 
+        reg_key, score, jingyan, yaoqing, band, 
+        time, login_time, sign_in_time, sign_in_date, sign_in_time_all, 
+        auto_user, h2, h3, h4, h5, 
+        y1, y2, y3, y4, y5
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoMember">
+        <include refid="go_member.SELECT_All_Column"/>
+        FROM go_member
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoMember">
+        DELETE FROM go_member
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoMember">
+        INSERT INTO go_member ( username, 
+          email, mobile, password, 
+          user_ip, img, qianming, 
+          groupid, addgroup, money, 
+          yongjin, emailcode, mobilecode, 
+          passcode, reg_key, score, 
+          jingyan, yaoqing, band, 
+          time, login_time, sign_in_time, 
+          sign_in_date, sign_in_time_all, auto_user, 
+          h2, h3, h4, 
+          h5, y1, y2, 
+          y3, y4, y5 )
+        VALUES ( #{username,jdbcType=CHAR}, 
+          #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=CHAR}, #{password,jdbcType=CHAR}, 
+          #{userIp,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{qianming,jdbcType=VARCHAR}, 
+          #{groupid,jdbcType=TINYINT}, #{addgroup,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
+          #{yongjin,jdbcType=DECIMAL}, #{emailcode,jdbcType=CHAR}, #{mobilecode,jdbcType=CHAR}, 
+          #{passcode,jdbcType=CHAR}, #{regKey,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+          #{jingyan,jdbcType=INTEGER}, #{yaoqing,jdbcType=INTEGER}, #{band,jdbcType=VARCHAR}, 
+          #{time,jdbcType=INTEGER}, #{loginTime,jdbcType=INTEGER}, #{signInTime,jdbcType=INTEGER}, 
+          #{signInDate,jdbcType=CHAR}, #{signInTimeAll,jdbcType=INTEGER}, #{autoUser,jdbcType=TINYINT}, 
+          #{h2,jdbcType=INTEGER}, #{h3,jdbcType=INTEGER}, #{h4,jdbcType=INTEGER}, 
+          #{h5,jdbcType=INTEGER}, #{y1,jdbcType=DECIMAL}, #{y2,jdbcType=DECIMAL}, 
+          #{y3,jdbcType=DECIMAL}, #{y4,jdbcType=DECIMAL}, #{y5,jdbcType=DECIMAL} )
+        <selectKey keyProperty="uid" resultType="int">
+            SELECT LAST_INSERT_ID() AS uid
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoMember">
+        INSERT INTO go_member
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="userIp != null">
+                user_ip,
+            </if>
+            <if test="img != null">
+                img,
+            </if>
+            <if test="qianming != null">
+                qianming,
+            </if>
+            <if test="groupid != null">
+                groupid,
+            </if>
+            <if test="addgroup != null">
+                addgroup,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="yongjin != null">
+                yongjin,
+            </if>
+            <if test="emailcode != null">
+                emailcode,
+            </if>
+            <if test="mobilecode != null">
+                mobilecode,
+            </if>
+            <if test="passcode != null">
+                passcode,
+            </if>
+            <if test="regKey != null">
+                reg_key,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="jingyan != null">
+                jingyan,
+            </if>
+            <if test="yaoqing != null">
+                yaoqing,
+            </if>
+            <if test="band != null">
+                band,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="signInTime != null">
+                sign_in_time,
+            </if>
+            <if test="signInDate != null">
+                sign_in_date,
+            </if>
+            <if test="signInTimeAll != null">
+                sign_in_time_all,
+            </if>
+            <if test="autoUser != null">
+                auto_user,
+            </if>
+            <if test="h2 != null">
+                h2,
+            </if>
+            <if test="h3 != null">
+                h3,
+            </if>
+            <if test="h4 != null">
+                h4,
+            </if>
+            <if test="h5 != null">
+                h5,
+            </if>
+            <if test="y1 != null">
+                y1,
+            </if>
+            <if test="y2 != null">
+                y2,
+            </if>
+            <if test="y3 != null">
+                y3,
+            </if>
+            <if test="y4 != null">
+                y4,
+            </if>
+            <if test="y5 != null">
+                y5,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="username != null">
+                #{username,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=CHAR},
+            </if>
+            <if test="userIp != null">
+                #{userIp,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="qianming != null">
+                #{qianming,jdbcType=VARCHAR},
+            </if>
+            <if test="groupid != null">
+                #{groupid,jdbcType=TINYINT},
+            </if>
+            <if test="addgroup != null">
+                #{addgroup,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="yongjin != null">
+                #{yongjin,jdbcType=DECIMAL},
+            </if>
+            <if test="emailcode != null">
+                #{emailcode,jdbcType=CHAR},
+            </if>
+            <if test="mobilecode != null">
+                #{mobilecode,jdbcType=CHAR},
+            </if>
+            <if test="passcode != null">
+                #{passcode,jdbcType=CHAR},
+            </if>
+            <if test="regKey != null">
+                #{regKey,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="jingyan != null">
+                #{jingyan,jdbcType=INTEGER},
+            </if>
+            <if test="yaoqing != null">
+                #{yaoqing,jdbcType=INTEGER},
+            </if>
+            <if test="band != null">
+                #{band,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=INTEGER},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime,jdbcType=INTEGER},
+            </if>
+            <if test="signInTime != null">
+                #{signInTime,jdbcType=INTEGER},
+            </if>
+            <if test="signInDate != null">
+                #{signInDate,jdbcType=CHAR},
+            </if>
+            <if test="signInTimeAll != null">
+                #{signInTimeAll,jdbcType=INTEGER},
+            </if>
+            <if test="autoUser != null">
+                #{autoUser,jdbcType=TINYINT},
+            </if>
+            <if test="h2 != null">
+                #{h2,jdbcType=INTEGER},
+            </if>
+            <if test="h3 != null">
+                #{h3,jdbcType=INTEGER},
+            </if>
+            <if test="h4 != null">
+                #{h4,jdbcType=INTEGER},
+            </if>
+            <if test="h5 != null">
+                #{h5,jdbcType=INTEGER},
+            </if>
+            <if test="y1 != null">
+                #{y1,jdbcType=DECIMAL},
+            </if>
+            <if test="y2 != null">
+                #{y2,jdbcType=DECIMAL},
+            </if>
+            <if test="y3 != null">
+                #{y3,jdbcType=DECIMAL},
+            </if>
+            <if test="y4 != null">
+                #{y4,jdbcType=DECIMAL},
+            </if>
+            <if test="y5 != null">
+                #{y5,jdbcType=DECIMAL},
+            </if>
+        </trim>
+        <selectKey keyProperty="uid" resultType="int">
+            SELECT LAST_INSERT_ID() AS uid
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_member ( username, 
+          email, mobile, password, 
+          user_ip, img, qianming, 
+          groupid, addgroup, money, 
+          yongjin, emailcode, mobilecode, 
+          passcode, reg_key, score, 
+          jingyan, yaoqing, band, 
+          time, login_time, sign_in_time, 
+          sign_in_date, sign_in_time_all, auto_user, 
+          h2, h3, h4, 
+          h5, y1, y2, 
+          y3, y4, y5 )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.username,jdbcType=CHAR}, 
+            #{item.email,jdbcType=VARCHAR}, #{item.mobile,jdbcType=CHAR}, #{item.password,jdbcType=CHAR}, 
+            #{item.userIp,jdbcType=VARCHAR}, #{item.img,jdbcType=VARCHAR}, #{item.qianming,jdbcType=VARCHAR}, 
+            #{item.groupid,jdbcType=TINYINT}, #{item.addgroup,jdbcType=VARCHAR}, #{item.money,jdbcType=DECIMAL}, 
+            #{item.yongjin,jdbcType=DECIMAL}, #{item.emailcode,jdbcType=CHAR}, #{item.mobilecode,jdbcType=CHAR}, 
+            #{item.passcode,jdbcType=CHAR}, #{item.regKey,jdbcType=VARCHAR}, #{item.score,jdbcType=INTEGER}, 
+            #{item.jingyan,jdbcType=INTEGER}, #{item.yaoqing,jdbcType=INTEGER}, #{item.band,jdbcType=VARCHAR}, 
+            #{item.time,jdbcType=INTEGER}, #{item.loginTime,jdbcType=INTEGER}, #{item.signInTime,jdbcType=INTEGER}, 
+            #{item.signInDate,jdbcType=CHAR}, #{item.signInTimeAll,jdbcType=INTEGER}, #{item.autoUser,jdbcType=TINYINT}, 
+            #{item.h2,jdbcType=INTEGER}, #{item.h3,jdbcType=INTEGER}, #{item.h4,jdbcType=INTEGER}, 
+            #{item.h5,jdbcType=INTEGER}, #{item.y1,jdbcType=DECIMAL}, #{item.y2,jdbcType=DECIMAL}, 
+            #{item.y3,jdbcType=DECIMAL}, #{item.y4,jdbcType=DECIMAL}, #{item.y5,jdbcType=DECIMAL}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoMember">
+        UPDATE go_member
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=CHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=CHAR},
+            </if>
+            <if test="userIp != null">
+                user_ip = #{userIp,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="qianming != null">
+                qianming = #{qianming,jdbcType=VARCHAR},
+            </if>
+            <if test="groupid != null">
+                groupid = #{groupid,jdbcType=TINYINT},
+            </if>
+            <if test="addgroup != null">
+                addgroup = #{addgroup,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="yongjin != null">
+                yongjin = #{yongjin,jdbcType=DECIMAL},
+            </if>
+            <if test="emailcode != null">
+                emailcode = #{emailcode,jdbcType=CHAR},
+            </if>
+            <if test="mobilecode != null">
+                mobilecode = #{mobilecode,jdbcType=CHAR},
+            </if>
+            <if test="passcode != null">
+                passcode = #{passcode,jdbcType=CHAR},
+            </if>
+            <if test="regKey != null">
+                reg_key = #{regKey,jdbcType=VARCHAR},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="jingyan != null">
+                jingyan = #{jingyan,jdbcType=INTEGER},
+            </if>
+            <if test="yaoqing != null">
+                yaoqing = #{yaoqing,jdbcType=INTEGER},
+            </if>
+            <if test="band != null">
+                band = #{band,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime,jdbcType=INTEGER},
+            </if>
+            <if test="signInTime != null">
+                sign_in_time = #{signInTime,jdbcType=INTEGER},
+            </if>
+            <if test="signInDate != null">
+                sign_in_date = #{signInDate,jdbcType=CHAR},
+            </if>
+            <if test="signInTimeAll != null">
+                sign_in_time_all = #{signInTimeAll,jdbcType=INTEGER},
+            </if>
+            <if test="autoUser != null">
+                auto_user = #{autoUser,jdbcType=TINYINT},
+            </if>
+            <if test="h2 != null">
+                h2 = #{h2,jdbcType=INTEGER},
+            </if>
+            <if test="h3 != null">
+                h3 = #{h3,jdbcType=INTEGER},
+            </if>
+            <if test="h4 != null">
+                h4 = #{h4,jdbcType=INTEGER},
+            </if>
+            <if test="h5 != null">
+                h5 = #{h5,jdbcType=INTEGER},
+            </if>
+            <if test="y1 != null">
+                y1 = #{y1,jdbcType=DECIMAL},
+            </if>
+            <if test="y2 != null">
+                y2 = #{y2,jdbcType=DECIMAL},
+            </if>
+            <if test="y3 != null">
+                y3 = #{y3,jdbcType=DECIMAL},
+            </if>
+            <if test="y4 != null">
+                y4 = #{y4,jdbcType=DECIMAL},
+            </if>
+            <if test="y5 != null">
+                y5 = #{y5,jdbcType=DECIMAL},
+            </if>
+        </set>
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoMember">
+        UPDATE go_member
+        SET username = #{username,jdbcType=CHAR},
+            email = #{email,jdbcType=VARCHAR},
+            mobile = #{mobile,jdbcType=CHAR},
+            password = #{password,jdbcType=CHAR},
+            user_ip = #{userIp,jdbcType=VARCHAR},
+            img = #{img,jdbcType=VARCHAR},
+            qianming = #{qianming,jdbcType=VARCHAR},
+            groupid = #{groupid,jdbcType=TINYINT},
+            addgroup = #{addgroup,jdbcType=VARCHAR},
+            money = #{money,jdbcType=DECIMAL},
+            yongjin = #{yongjin,jdbcType=DECIMAL},
+            emailcode = #{emailcode,jdbcType=CHAR},
+            mobilecode = #{mobilecode,jdbcType=CHAR},
+            passcode = #{passcode,jdbcType=CHAR},
+            reg_key = #{regKey,jdbcType=VARCHAR},
+            score = #{score,jdbcType=INTEGER},
+            jingyan = #{jingyan,jdbcType=INTEGER},
+            yaoqing = #{yaoqing,jdbcType=INTEGER},
+            band = #{band,jdbcType=VARCHAR},
+            time = #{time,jdbcType=INTEGER},
+            login_time = #{loginTime,jdbcType=INTEGER},
+            sign_in_time = #{signInTime,jdbcType=INTEGER},
+            sign_in_date = #{signInDate,jdbcType=CHAR},
+            sign_in_time_all = #{signInTimeAll,jdbcType=INTEGER},
+            auto_user = #{autoUser,jdbcType=TINYINT},
+            h2 = #{h2,jdbcType=INTEGER},
+            h3 = #{h3,jdbcType=INTEGER},
+            h4 = #{h4,jdbcType=INTEGER},
+            h5 = #{h5,jdbcType=INTEGER},
+            y1 = #{y1,jdbcType=DECIMAL},
+            y2 = #{y2,jdbcType=DECIMAL},
+            y3 = #{y3,jdbcType=DECIMAL},
+            y4 = #{y4,jdbcType=DECIMAL},
+            y5 = #{y5,jdbcType=DECIMAL}
+        WHERE uid = #{uid,jdbcType=INTEGER}
+    </update>
+</mapper>

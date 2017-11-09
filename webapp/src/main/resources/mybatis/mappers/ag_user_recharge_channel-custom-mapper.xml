@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_user_recharge_channel">
+
+    <select id="selectRechargeCountByRelation" parameterType="map" resultType="DECIMAL">
+        SELECT SUM(recharge_money)
+        FROM ag_user_recharge_channel
+        WHERE package_name = #{packageName,jdbcType=VARCHAR}
+        AND channel_name = #{channelName,jdbcType=VARCHAR}
+        AND LEFT (create_time, 10) = #{today,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询每天的新增用户充值额-->
+    <select id="selectNewUserChargeDayByDay" parameterType="string" resultType="DECIMAL">
+        SELECT  SUM(recharge_money)
+        FROM    ag_user_recharge_channel
+        WHERE   uid IN (SELECT uid FROM ag_user_channel WHERE LEFT(create_time,10) = #{time,jdbcType=VARCHAR})
+        AND     LEFT(create_time,10) = #{time,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询具体 包+渠道的 每天的新增用户充值额-->
+    <select id="selectNewUserChargeByDayPackageChannel" parameterType="map" resultType="DECIMAL">
+        SELECT  SUM(recharge_money)
+        FROM    ag_user_recharge_channel
+        WHERE   uid IN (SELECT uid FROM ag_user_channel WHERE LEFT(create_time,10) = #{today,jdbcType=VARCHAR})
+        AND     package_name = #{packageName,jdbcType=VARCHAR}
+        AND     channel_name = #{channelName,jdbcType=VARCHAR}
+        AND     LEFT(create_time,10) = #{today,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询每天的总充值额-->
+    <select id="selectTotalUserChargeDayByDay" parameterType="string" resultType="DECIMAL">
+        SELECT  SUM(recharge_money)
+        FROM    ag_user_recharge_channel
+        WHERE   LEFT(create_time,10) = #{time,jdbcType=VARCHAR}
+    </select>
+
+    <!--查询 具体的 包+渠道 每天的总充值额-->
+    <select id="selectTotalUserChargeByDayPackageChannel" parameterType="map" resultType="DECIMAL">
+        SELECT  SUM(recharge_money)
+        FROM    ag_user_recharge_channel
+        WHERE   LEFT(create_time,10) = #{today,jdbcType=VARCHAR}
+        AND     package_name = #{packageName,jdbcType=VARCHAR}
+        AND     channel_name = #{channelName,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

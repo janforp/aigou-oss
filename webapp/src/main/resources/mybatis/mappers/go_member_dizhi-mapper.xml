@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member_dizhi">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoMemberDizhi">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="sheng" property="sheng" jdbcType="VARCHAR"/>
+        <result column="shi" property="shi" jdbcType="VARCHAR"/>
+        <result column="xian" property="xian" jdbcType="VARCHAR"/>
+        <result column="jiedao" property="jiedao" jdbcType="VARCHAR"/>
+        <result column="youbian" property="youbian" jdbcType="INTEGER"/>
+        <result column="shouhuoren" property="shouhuoren" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="CHAR"/>
+        <result column="qq" property="qq" jdbcType="CHAR"/>
+        <result column="tell" property="tell" jdbcType="VARCHAR"/>
+        <result column="default" property="defaul" jdbcType="CHAR"/>
+        <result column="time" property="time" jdbcType="INTEGER"/>
+        <result column="mappoint_lng" property="mappointLng" jdbcType="VARCHAR"/>
+        <result column="mappoint_lat" property="mappointLat" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, uid, sheng, shi, xian, 
+        jiedao, youbian, shouhuoren, mobile, qq, 
+        tell, `default` as defaul, time, mappoint_lng, mappoint_lat
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoMemberDizhi">
+        <include refid="go_member_dizhi.SELECT_All_Column"/>
+        FROM go_member_dizhi
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoMemberDizhi">
+        DELETE FROM go_member_dizhi
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoMemberDizhi">
+        INSERT INTO go_member_dizhi ( uid, 
+          sheng, shi, xian, 
+          jiedao, youbian, shouhuoren, 
+          mobile, qq, tell, 
+          `default`, time, mappoint_lng,
+          mappoint_lat )
+        VALUES ( #{uid,jdbcType=INTEGER}, 
+          #{sheng,jdbcType=VARCHAR}, #{shi,jdbcType=VARCHAR}, #{xian,jdbcType=VARCHAR}, 
+          #{jiedao,jdbcType=VARCHAR}, #{youbian,jdbcType=INTEGER}, #{shouhuoren,jdbcType=VARCHAR}, 
+          #{mobile,jdbcType=CHAR}, #{qq,jdbcType=CHAR}, #{tell,jdbcType=VARCHAR}, 
+          #{defaul,jdbcType=CHAR}, #{time,jdbcType=INTEGER}, #{mappointLng,jdbcType=VARCHAR},
+          #{mappointLat,jdbcType=VARCHAR} )
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoMemberDizhi">
+        INSERT INTO go_member_dizhi
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="sheng != null">
+                sheng,
+            </if>
+            <if test="shi != null">
+                shi,
+            </if>
+            <if test="xian != null">
+                xian,
+            </if>
+            <if test="jiedao != null">
+                jiedao,
+            </if>
+            <if test="youbian != null">
+                youbian,
+            </if>
+            <if test="shouhuoren != null">
+                shouhuoren,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="qq != null">
+                qq,
+            </if>
+            <if test="tell != null">
+                tell,
+            </if>
+            <if test="`default` != null">
+                `default`,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="mappointLng != null">
+                mappoint_lng,
+            </if>
+            <if test="mappointLat != null">
+                mappoint_lat,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="sheng != null">
+                #{sheng,jdbcType=VARCHAR},
+            </if>
+            <if test="shi != null">
+                #{shi,jdbcType=VARCHAR},
+            </if>
+            <if test="xian != null">
+                #{xian,jdbcType=VARCHAR},
+            </if>
+            <if test="jiedao != null">
+                #{jiedao,jdbcType=VARCHAR},
+            </if>
+            <if test="youbian != null">
+                #{youbian,jdbcType=INTEGER},
+            </if>
+            <if test="shouhuoren != null">
+                #{shouhuoren,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=CHAR},
+            </if>
+            <if test="qq != null">
+                #{qq,jdbcType=CHAR},
+            </if>
+            <if test="tell != null">
+                #{tell,jdbcType=VARCHAR},
+            </if>
+            <if test="`default` != null">
+                #{`default`,jdbcType=CHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=INTEGER},
+            </if>
+            <if test="mappointLng != null">
+                #{mappointLng,jdbcType=VARCHAR},
+            </if>
+            <if test="mappointLat != null">
+                #{mappointLat,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_member_dizhi ( uid, 
+          sheng, shi, xian, 
+          jiedao, youbian, shouhuoren, 
+          mobile, qq, tell, 
+          `default`, time, mappoint_lng,
+          mappoint_lat )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.uid,jdbcType=INTEGER}, 
+            #{item.sheng,jdbcType=VARCHAR}, #{item.shi,jdbcType=VARCHAR}, #{item.xian,jdbcType=VARCHAR}, 
+            #{item.jiedao,jdbcType=VARCHAR}, #{item.youbian,jdbcType=INTEGER}, #{item.shouhuoren,jdbcType=VARCHAR}, 
+            #{item.mobile,jdbcType=CHAR}, #{item.qq,jdbcType=CHAR}, #{item.tell,jdbcType=VARCHAR}, 
+            #{item.defaul,jdbcType=CHAR}, #{item.time,jdbcType=INTEGER}, #{item.mappointLng,jdbcType=VARCHAR},
+            #{item.mappointLat,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoMemberDizhi">
+        UPDATE go_member_dizhi
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="sheng != null">
+                sheng = #{sheng,jdbcType=VARCHAR},
+            </if>
+            <if test="shi != null">
+                shi = #{shi,jdbcType=VARCHAR},
+            </if>
+            <if test="xian != null">
+                xian = #{xian,jdbcType=VARCHAR},
+            </if>
+            <if test="jiedao != null">
+                jiedao = #{jiedao,jdbcType=VARCHAR},
+            </if>
+            <if test="youbian != null">
+                youbian = #{youbian,jdbcType=INTEGER},
+            </if>
+            <if test="shouhuoren != null">
+                shouhuoren = #{shouhuoren,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=CHAR},
+            </if>
+            <if test="qq != null">
+                qq = #{qq,jdbcType=CHAR},
+            </if>
+            <if test="tell != null">
+                tell = #{tell,jdbcType=VARCHAR},
+            </if>
+            <if test="`default` != null">
+                `default` = #{defaul,jdbcType=CHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="mappointLng != null">
+                mappoint_lng = #{mappointLng,jdbcType=VARCHAR},
+            </if>
+            <if test="mappointLat != null">
+                mappoint_lat = #{mappointLat,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoMemberDizhi">
+        UPDATE go_member_dizhi
+        SET uid = #{uid,jdbcType=INTEGER},
+            sheng = #{sheng,jdbcType=VARCHAR},
+            shi = #{shi,jdbcType=VARCHAR},
+            xian = #{xian,jdbcType=VARCHAR},
+            jiedao = #{jiedao,jdbcType=VARCHAR},
+            youbian = #{youbian,jdbcType=INTEGER},
+            shouhuoren = #{shouhuoren,jdbcType=VARCHAR},
+            mobile = #{mobile,jdbcType=CHAR},
+            qq = #{qq,jdbcType=CHAR},
+            tell = #{tell,jdbcType=VARCHAR},
+            `default` = #{defaul,jdbcType=CHAR},
+            time = #{time,jdbcType=INTEGER},
+            mappoint_lng = #{mappointLng,jdbcType=VARCHAR},
+            mappoint_lat = #{mappointLat,jdbcType=VARCHAR}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

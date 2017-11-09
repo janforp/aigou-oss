@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_channel_relation">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgChannelRelation">
+        <id column="package_name" property="packageName" jdbcType="VARCHAR"/>
+        <id column="channel_name" property="channelName" jdbcType="VARCHAR"/>
+        <result column="relation_name" property="relationName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT package_name, channel_name, relation_name
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgChannelRelation">
+        <include refid="ag_channel_relation.SELECT_All_Column"/>
+        FROM ag_channel_relation
+        WHERE package_name = #{packageName,jdbcType=VARCHAR}
+        AND channel_name = #{channelName,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgChannelRelation">
+        DELETE FROM ag_channel_relation
+        WHERE package_name = #{packageName,jdbcType=VARCHAR}
+        AND channel_name = #{channelName,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgChannelRelation">
+        INSERT INTO ag_channel_relation ( package_name, 
+          channel_name, relation_name )
+        VALUES ( #{packageName,jdbcType=VARCHAR}, 
+          #{channelName,jdbcType=VARCHAR}, #{relationName,jdbcType=VARCHAR} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgChannelRelation">
+        INSERT INTO ag_channel_relation
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                package_name,
+                channel_name,
+            <if test="relationName != null">
+                relation_name,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{packageName,jdbcType=VARCHAR},
+                #{channelName,jdbcType=VARCHAR},
+            <if test="relationName != null">
+                #{relationName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_channel_relation ( package_name, 
+          channel_name, relation_name )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.packageName,jdbcType=VARCHAR}, 
+            #{item.channelName,jdbcType=VARCHAR}, #{item.relationName,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgChannelRelation">
+        UPDATE ag_channel_relation
+        <set>
+            <if test="relationName != null">
+                relation_name = #{relationName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE package_name = #{packageName,jdbcType=VARCHAR}
+        AND channel_name = #{channelName,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgChannelRelation">
+        UPDATE ag_channel_relation
+        SET relation_name = #{relationName,jdbcType=VARCHAR}
+        WHERE package_name = #{packageName,jdbcType=VARCHAR}
+        AND channel_name = #{channelName,jdbcType=VARCHAR}
+    </update>
+</mapper>

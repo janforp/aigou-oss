@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_shoplist">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoShoplist">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sid" property="sid" jdbcType="INTEGER"/>
+        <result column="cateid" property="cateid" jdbcType="INTEGER"/>
+        <result column="brandid" property="brandid" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="title_style" property="titleStyle" jdbcType="VARCHAR"/>
+        <result column="title2" property="title2" jdbcType="VARCHAR"/>
+        <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="yunjiage" property="yunjiage" jdbcType="DECIMAL"/>
+        <result column="zongrenshu" property="zongrenshu" jdbcType="INTEGER"/>
+        <result column="canyurenshu" property="canyurenshu" jdbcType="INTEGER"/>
+        <result column="shenyurenshu" property="shenyurenshu" jdbcType="INTEGER"/>
+        <result column="def_renshu" property="defRenshu" jdbcType="INTEGER"/>
+        <result column="qishu" property="qishu" jdbcType="INTEGER"/>
+        <result column="maxqishu" property="maxqishu" jdbcType="INTEGER"/>
+        <result column="thumb" property="thumb" jdbcType="VARCHAR"/>
+        <result column="picarr" property="picarr" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="codes_table" property="codesTable" jdbcType="CHAR"/>
+        <result column="xsjx_time" property="xsjxTime" jdbcType="INTEGER"/>
+        <result column="pos" property="pos" jdbcType="TINYINT"/>
+        <result column="renqi" property="renqi" jdbcType="TINYINT"/>
+        <result column="time" property="time" jdbcType="INTEGER"/>
+        <result column="order" property="order" jdbcType="INTEGER"/>
+        <result column="q_uid" property="qUid" jdbcType="INTEGER"/>
+        <result column="q_user" property="qUser" jdbcType="VARCHAR"/>
+        <result column="q_user_code" property="qUserCode" jdbcType="CHAR"/>
+        <result column="q_content" property="qContent" jdbcType="VARCHAR"/>
+        <result column="q_counttime" property="qCounttime" jdbcType="CHAR"/>
+        <result column="q_end_time" property="qEndTime" jdbcType="CHAR"/>
+        <result column="q_showtime" property="qShowtime" jdbcType="CHAR"/>
+        <result column="renqipos" property="renqipos" jdbcType="TINYINT"/>
+        <result column="newpos" property="newpos" jdbcType="TINYINT"/>
+        <result column="bannershop" property="bannershop" jdbcType="TINYINT"/>
+        <result column="posthumb" property="posthumb" jdbcType="VARCHAR"/>
+        <result column="quyu" property="quyu" jdbcType="INTEGER"/>
+        <result column="quyu_begin" property="quyuBegin" jdbcType="INTEGER"/>
+        <result column="quyu_end" property="quyuEnd" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, sid, cateid, brandid, title, 
+        title_style, title2, keywords, description, money, 
+        yunjiage, zongrenshu, canyurenshu, shenyurenshu, def_renshu, 
+        qishu, maxqishu, thumb, picarr, content, 
+        codes_table, xsjx_time, pos, renqi, time, 
+        `order`, q_uid, q_user, q_user_code, q_content, 
+        q_counttime, q_end_time, q_showtime, renqipos, newpos, 
+        bannershop, posthumb, quyu, quyu_begin, quyu_end
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoShoplist">
+        <include refid="go_shoplist.SELECT_All_Column"/>
+        FROM go_shoplist
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoShoplist">
+        DELETE FROM go_shoplist
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoShoplist">
+        INSERT INTO go_shoplist ( sid, 
+          cateid, brandid, title, 
+          title_style, title2, keywords, 
+          description, money, yunjiage, 
+          zongrenshu, canyurenshu, shenyurenshu, 
+          def_renshu, qishu, maxqishu, 
+          thumb, picarr, content, 
+          codes_table, xsjx_time, pos, 
+          renqi, time, `order`, 
+          q_uid, q_user, q_user_code, 
+          q_content, q_counttime, q_end_time, 
+          q_showtime, renqipos, newpos, 
+          bannershop, posthumb, quyu, 
+          quyu_begin, quyu_end )
+        VALUES ( #{sid,jdbcType=INTEGER}, 
+          #{cateid,jdbcType=INTEGER}, #{brandid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+          #{titleStyle,jdbcType=VARCHAR}, #{title2,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, 
+          #{description,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, #{yunjiage,jdbcType=DECIMAL}, 
+          #{zongrenshu,jdbcType=INTEGER}, #{canyurenshu,jdbcType=INTEGER}, #{shenyurenshu,jdbcType=INTEGER}, 
+          #{defRenshu,jdbcType=INTEGER}, #{qishu,jdbcType=INTEGER}, #{maxqishu,jdbcType=INTEGER}, 
+          #{thumb,jdbcType=VARCHAR}, #{picarr,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+          #{codesTable,jdbcType=CHAR}, #{xsjxTime,jdbcType=INTEGER}, #{pos,jdbcType=TINYINT}, 
+          #{renqi,jdbcType=TINYINT}, #{time,jdbcType=INTEGER}, #{order,jdbcType=INTEGER}, 
+          #{qUid,jdbcType=INTEGER}, #{qUser,jdbcType=VARCHAR}, #{qUserCode,jdbcType=CHAR}, 
+          #{qContent,jdbcType=VARCHAR}, #{qCounttime,jdbcType=CHAR}, #{qEndTime,jdbcType=CHAR}, 
+          #{qShowtime,jdbcType=CHAR}, #{renqipos,jdbcType=TINYINT}, #{newpos,jdbcType=TINYINT}, 
+          #{bannershop,jdbcType=TINYINT}, #{posthumb,jdbcType=VARCHAR}, #{quyu,jdbcType=INTEGER}, 
+          #{quyuBegin,jdbcType=INTEGER}, #{quyuEnd,jdbcType=INTEGER} )
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoShoplist">
+        INSERT INTO go_shoplist
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="sid != null">
+                sid,
+            </if>
+            <if test="cateid != null">
+                cateid,
+            </if>
+            <if test="brandid != null">
+                brandid,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="titleStyle != null">
+                title_style,
+            </if>
+            <if test="title2 != null">
+                title2,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="yunjiage != null">
+                yunjiage,
+            </if>
+            <if test="zongrenshu != null">
+                zongrenshu,
+            </if>
+            <if test="canyurenshu != null">
+                canyurenshu,
+            </if>
+            <if test="shenyurenshu != null">
+                shenyurenshu,
+            </if>
+            <if test="defRenshu != null">
+                def_renshu,
+            </if>
+            <if test="qishu != null">
+                qishu,
+            </if>
+            <if test="maxqishu != null">
+                maxqishu,
+            </if>
+            <if test="thumb != null">
+                thumb,
+            </if>
+            <if test="picarr != null">
+                picarr,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="codesTable != null">
+                codes_table,
+            </if>
+            <if test="xsjxTime != null">
+                xsjx_time,
+            </if>
+            <if test="pos != null">
+                pos,
+            </if>
+            <if test="renqi != null">
+                renqi,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="order != null">
+                `order`,
+            </if>
+            <if test="qUid != null">
+                q_uid,
+            </if>
+            <if test="qUser != null">
+                q_user,
+            </if>
+            <if test="qUserCode != null">
+                q_user_code,
+            </if>
+            <if test="qContent != null">
+                q_content,
+            </if>
+            <if test="qCounttime != null">
+                q_counttime,
+            </if>
+            <if test="qEndTime != null">
+                q_end_time,
+            </if>
+            <if test="qShowtime != null">
+                q_showtime,
+            </if>
+            <if test="renqipos != null">
+                renqipos,
+            </if>
+            <if test="newpos != null">
+                newpos,
+            </if>
+            <if test="bannershop != null">
+                bannershop,
+            </if>
+            <if test="posthumb != null">
+                posthumb,
+            </if>
+            <if test="quyu != null">
+                quyu,
+            </if>
+            <if test="quyuBegin != null">
+                quyu_begin,
+            </if>
+            <if test="quyuEnd != null">
+                quyu_end,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="sid != null">
+                #{sid,jdbcType=INTEGER},
+            </if>
+            <if test="cateid != null">
+                #{cateid,jdbcType=INTEGER},
+            </if>
+            <if test="brandid != null">
+                #{brandid,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="titleStyle != null">
+                #{titleStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="title2 != null">
+                #{title2,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="yunjiage != null">
+                #{yunjiage,jdbcType=DECIMAL},
+            </if>
+            <if test="zongrenshu != null">
+                #{zongrenshu,jdbcType=INTEGER},
+            </if>
+            <if test="canyurenshu != null">
+                #{canyurenshu,jdbcType=INTEGER},
+            </if>
+            <if test="shenyurenshu != null">
+                #{shenyurenshu,jdbcType=INTEGER},
+            </if>
+            <if test="defRenshu != null">
+                #{defRenshu,jdbcType=INTEGER},
+            </if>
+            <if test="qishu != null">
+                #{qishu,jdbcType=INTEGER},
+            </if>
+            <if test="maxqishu != null">
+                #{maxqishu,jdbcType=INTEGER},
+            </if>
+            <if test="thumb != null">
+                #{thumb,jdbcType=VARCHAR},
+            </if>
+            <if test="picarr != null">
+                #{picarr,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="codesTable != null">
+                #{codesTable,jdbcType=CHAR},
+            </if>
+            <if test="xsjxTime != null">
+                #{xsjxTime,jdbcType=INTEGER},
+            </if>
+            <if test="pos != null">
+                #{pos,jdbcType=TINYINT},
+            </if>
+            <if test="renqi != null">
+                #{renqi,jdbcType=TINYINT},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=INTEGER},
+            </if>
+            <if test="order != null">
+                #{order,jdbcType=INTEGER},
+            </if>
+            <if test="qUid != null">
+                #{qUid,jdbcType=INTEGER},
+            </if>
+            <if test="qUser != null">
+                #{qUser,jdbcType=VARCHAR},
+            </if>
+            <if test="qUserCode != null">
+                #{qUserCode,jdbcType=CHAR},
+            </if>
+            <if test="qContent != null">
+                #{qContent,jdbcType=VARCHAR},
+            </if>
+            <if test="qCounttime != null">
+                #{qCounttime,jdbcType=CHAR},
+            </if>
+            <if test="qEndTime != null">
+                #{qEndTime,jdbcType=CHAR},
+            </if>
+            <if test="qShowtime != null">
+                #{qShowtime,jdbcType=CHAR},
+            </if>
+            <if test="renqipos != null">
+                #{renqipos,jdbcType=TINYINT},
+            </if>
+            <if test="newpos != null">
+                #{newpos,jdbcType=TINYINT},
+            </if>
+            <if test="bannershop != null">
+                #{bannershop,jdbcType=TINYINT},
+            </if>
+            <if test="posthumb != null">
+                #{posthumb,jdbcType=VARCHAR},
+            </if>
+            <if test="quyu != null">
+                #{quyu,jdbcType=INTEGER},
+            </if>
+            <if test="quyuBegin != null">
+                #{quyuBegin,jdbcType=INTEGER},
+            </if>
+            <if test="quyuEnd != null">
+                #{quyuEnd,jdbcType=INTEGER},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_shoplist ( sid, 
+          cateid, brandid, title, 
+          title_style, title2, keywords, 
+          description, money, yunjiage, 
+          zongrenshu, canyurenshu, shenyurenshu, 
+          def_renshu, qishu, maxqishu, 
+          thumb, picarr, content, 
+          codes_table, xsjx_time, pos, 
+          renqi, time, `order`, 
+          q_uid, q_user, q_user_code, 
+          q_content, q_counttime, q_end_time, 
+          q_showtime, renqipos, newpos, 
+          bannershop, posthumb, quyu, 
+          quyu_begin, quyu_end )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.sid,jdbcType=INTEGER}, 
+            #{item.cateid,jdbcType=INTEGER}, #{item.brandid,jdbcType=INTEGER}, #{item.title,jdbcType=VARCHAR}, 
+            #{item.titleStyle,jdbcType=VARCHAR}, #{item.title2,jdbcType=VARCHAR}, #{item.keywords,jdbcType=VARCHAR}, 
+            #{item.description,jdbcType=VARCHAR}, #{item.money,jdbcType=DECIMAL}, #{item.yunjiage,jdbcType=DECIMAL}, 
+            #{item.zongrenshu,jdbcType=INTEGER}, #{item.canyurenshu,jdbcType=INTEGER}, #{item.shenyurenshu,jdbcType=INTEGER}, 
+            #{item.defRenshu,jdbcType=INTEGER}, #{item.qishu,jdbcType=INTEGER}, #{item.maxqishu,jdbcType=INTEGER}, 
+            #{item.thumb,jdbcType=VARCHAR}, #{item.picarr,jdbcType=VARCHAR}, #{item.content,jdbcType=VARCHAR}, 
+            #{item.codesTable,jdbcType=CHAR}, #{item.xsjxTime,jdbcType=INTEGER}, #{item.pos,jdbcType=TINYINT}, 
+            #{item.renqi,jdbcType=TINYINT}, #{item.time,jdbcType=INTEGER}, #{item.order,jdbcType=INTEGER}, 
+            #{item.qUid,jdbcType=INTEGER}, #{item.qUser,jdbcType=VARCHAR}, #{item.qUserCode,jdbcType=CHAR}, 
+            #{item.qContent,jdbcType=VARCHAR}, #{item.qCounttime,jdbcType=CHAR}, #{item.qEndTime,jdbcType=CHAR}, 
+            #{item.qShowtime,jdbcType=CHAR}, #{item.renqipos,jdbcType=TINYINT}, #{item.newpos,jdbcType=TINYINT}, 
+            #{item.bannershop,jdbcType=TINYINT}, #{item.posthumb,jdbcType=VARCHAR}, #{item.quyu,jdbcType=INTEGER}, 
+            #{item.quyuBegin,jdbcType=INTEGER}, #{item.quyuEnd,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoShoplist">
+        UPDATE go_shoplist
+        <set>
+            <if test="sid != null">
+                sid = #{sid,jdbcType=INTEGER},
+            </if>
+            <if test="cateid != null">
+                cateid = #{cateid,jdbcType=INTEGER},
+            </if>
+            <if test="brandid != null">
+                brandid = #{brandid,jdbcType=INTEGER},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="titleStyle != null">
+                title_style = #{titleStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="title2 != null">
+                title2 = #{title2,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="yunjiage != null">
+                yunjiage = #{yunjiage,jdbcType=DECIMAL},
+            </if>
+            <if test="zongrenshu != null">
+                zongrenshu = #{zongrenshu,jdbcType=INTEGER},
+            </if>
+            <if test="canyurenshu != null">
+                canyurenshu = #{canyurenshu,jdbcType=INTEGER},
+            </if>
+            <if test="shenyurenshu != null">
+                shenyurenshu = #{shenyurenshu,jdbcType=INTEGER},
+            </if>
+            <if test="defRenshu != null">
+                def_renshu = #{defRenshu,jdbcType=INTEGER},
+            </if>
+            <if test="qishu != null">
+                qishu = #{qishu,jdbcType=INTEGER},
+            </if>
+            <if test="maxqishu != null">
+                maxqishu = #{maxqishu,jdbcType=INTEGER},
+            </if>
+            <if test="thumb != null">
+                thumb = #{thumb,jdbcType=VARCHAR},
+            </if>
+            <if test="picarr != null">
+                picarr = #{picarr,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="codesTable != null">
+                codes_table = #{codesTable,jdbcType=CHAR},
+            </if>
+            <if test="xsjxTime != null">
+                xsjx_time = #{xsjxTime,jdbcType=INTEGER},
+            </if>
+            <if test="pos != null">
+                pos = #{pos,jdbcType=TINYINT},
+            </if>
+            <if test="renqi != null">
+                renqi = #{renqi,jdbcType=TINYINT},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="order != null">
+                `order` = #{order,jdbcType=INTEGER},
+            </if>
+            <if test="qUid != null">
+                q_uid = #{qUid,jdbcType=INTEGER},
+            </if>
+            <if test="qUser != null">
+                q_user = #{qUser,jdbcType=VARCHAR},
+            </if>
+            <if test="qUserCode != null">
+                q_user_code = #{qUserCode,jdbcType=CHAR},
+            </if>
+            <if test="qContent != null">
+                q_content = #{qContent,jdbcType=VARCHAR},
+            </if>
+            <if test="qCounttime != null">
+                q_counttime = #{qCounttime,jdbcType=CHAR},
+            </if>
+            <if test="qEndTime != null">
+                q_end_time = #{qEndTime,jdbcType=CHAR},
+            </if>
+            <if test="qShowtime != null">
+                q_showtime = #{qShowtime,jdbcType=CHAR},
+            </if>
+            <if test="renqipos != null">
+                renqipos = #{renqipos,jdbcType=TINYINT},
+            </if>
+            <if test="newpos != null">
+                newpos = #{newpos,jdbcType=TINYINT},
+            </if>
+            <if test="bannershop != null">
+                bannershop = #{bannershop,jdbcType=TINYINT},
+            </if>
+            <if test="posthumb != null">
+                posthumb = #{posthumb,jdbcType=VARCHAR},
+            </if>
+            <if test="quyu != null">
+                quyu = #{quyu,jdbcType=INTEGER},
+            </if>
+            <if test="quyuBegin != null">
+                quyu_begin = #{quyuBegin,jdbcType=INTEGER},
+            </if>
+            <if test="quyuEnd != null">
+                quyu_end = #{quyuEnd,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoShoplist">
+        UPDATE go_shoplist
+        SET sid = #{sid,jdbcType=INTEGER},
+            cateid = #{cateid,jdbcType=INTEGER},
+            brandid = #{brandid,jdbcType=INTEGER},
+            title = #{title,jdbcType=VARCHAR},
+            title_style = #{titleStyle,jdbcType=VARCHAR},
+            title2 = #{title2,jdbcType=VARCHAR},
+            keywords = #{keywords,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            money = #{money,jdbcType=DECIMAL},
+            yunjiage = #{yunjiage,jdbcType=DECIMAL},
+            zongrenshu = #{zongrenshu,jdbcType=INTEGER},
+            canyurenshu = #{canyurenshu,jdbcType=INTEGER},
+            shenyurenshu = #{shenyurenshu,jdbcType=INTEGER},
+            def_renshu = #{defRenshu,jdbcType=INTEGER},
+            qishu = #{qishu,jdbcType=INTEGER},
+            maxqishu = #{maxqishu,jdbcType=INTEGER},
+            thumb = #{thumb,jdbcType=VARCHAR},
+            picarr = #{picarr,jdbcType=VARCHAR},
+            content = #{content,jdbcType=VARCHAR},
+            codes_table = #{codesTable,jdbcType=CHAR},
+            xsjx_time = #{xsjxTime,jdbcType=INTEGER},
+            pos = #{pos,jdbcType=TINYINT},
+            renqi = #{renqi,jdbcType=TINYINT},
+            time = #{time,jdbcType=INTEGER},
+            `order` = #{order,jdbcType=INTEGER},
+            q_uid = #{qUid,jdbcType=INTEGER},
+            q_user = #{qUser,jdbcType=VARCHAR},
+            q_user_code = #{qUserCode,jdbcType=CHAR},
+            q_content = #{qContent,jdbcType=VARCHAR},
+            q_counttime = #{qCounttime,jdbcType=CHAR},
+            q_end_time = #{qEndTime,jdbcType=CHAR},
+            q_showtime = #{qShowtime,jdbcType=CHAR},
+            renqipos = #{renqipos,jdbcType=TINYINT},
+            newpos = #{newpos,jdbcType=TINYINT},
+            bannershop = #{bannershop,jdbcType=TINYINT},
+            posthumb = #{posthumb,jdbcType=VARCHAR},
+            quyu = #{quyu,jdbcType=INTEGER},
+            quyu_begin = #{quyuBegin,jdbcType=INTEGER},
+            quyu_end = #{quyuEnd,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

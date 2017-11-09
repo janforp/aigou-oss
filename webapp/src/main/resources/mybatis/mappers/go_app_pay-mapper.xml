@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_app_pay">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoAppPay">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="img" property="img" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="no" property="no" jdbcType="INTEGER"/>
+        <result column="xu" property="xu" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, name, type, img, content, 
+        no, xu
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoAppPay">
+        <include refid="go_app_pay.SELECT_All_Column"/>
+        FROM go_app_pay
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoAppPay">
+        DELETE FROM go_app_pay
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoAppPay">
+        INSERT INTO go_app_pay ( name, 
+          type, img, content, 
+          no, xu )
+        VALUES ( #{name,jdbcType=VARCHAR}, 
+          #{type,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+          #{no,jdbcType=INTEGER}, #{xu,jdbcType=INTEGER} )
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoAppPay">
+        INSERT INTO go_app_pay
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="img != null">
+                img,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="no != null">
+                no,
+            </if>
+            <if test="xu != null">
+                xu,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="no != null">
+                #{no,jdbcType=INTEGER},
+            </if>
+            <if test="xu != null">
+                #{xu,jdbcType=INTEGER},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_app_pay ( name, 
+          type, img, content, 
+          no, xu )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.name,jdbcType=VARCHAR}, 
+            #{item.type,jdbcType=VARCHAR}, #{item.img,jdbcType=VARCHAR}, #{item.content,jdbcType=VARCHAR}, 
+            #{item.no,jdbcType=INTEGER}, #{item.xu,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoAppPay">
+        UPDATE go_app_pay
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                img = #{img,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="no != null">
+                no = #{no,jdbcType=INTEGER},
+            </if>
+            <if test="xu != null">
+                xu = #{xu,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoAppPay">
+        UPDATE go_app_pay
+        SET name = #{name,jdbcType=VARCHAR},
+            type = #{type,jdbcType=VARCHAR},
+            img = #{img,jdbcType=VARCHAR},
+            content = #{content,jdbcType=VARCHAR},
+            no = #{no,jdbcType=INTEGER},
+            xu = #{xu,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

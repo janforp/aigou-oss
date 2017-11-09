@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member_account">
+
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoMemberAccount">
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="pay" property="pay" jdbcType="CHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="time" property="time" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="SELECT_All_Column">
+        SELECT uid, type, pay, content, money, time
+    </sql>
+
+
+
+    <select id="findAccountByUserId" resultMap="BaseResultMap" parameterType="Integer">
+        <include refid="go_member_account.SELECT_All_Column"/>
+        FROM    go_member_account
+        WHERE   uid = #{uid,jdbcType=INTEGER}
+        AND     type != '-1'
+        AND     pay LIKE '%账户%'
+        ORDER   BY  time DESC
+    </select>
+
+    <select id="findTotalAccountByUserId" resultType="Integer" parameterType="Integer">
+        SELECT  COUNT(*)
+        FROM    go_member_account
+        WHERE   uid = #{uid,jdbcType=INTEGER}
+        AND     type != '-1'
+        AND     pay LIKE '%账户%'
+        ORDER   BY  time DESC
+    </select>
+
+
+    <!-- 充值查询  分页-->
+    <select id="findAccountByParamKeyParamValueTime" resultMap="BaseResultMap" parameterType="map">
+        <include refid="go_member_account.SELECT_All_Column"/>
+        FROM    go_member_account
+        WHERE   type = '1'
+        AND     pay LIKE '%账户%'
+        AND     uid NOT IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND time >= #{startTime,jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND time  <![CDATA[ <= ]]> #{endTime,jdbcType=CHAR}
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND uid = (SELECT uid FROM go_member WHERE mobile = #{paramValue,jdbcType = CHAR})
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        ORDER   BY  time  DESC
+    </select>
+
+    <!-- 充值查询  分页-->
+    <select id="findAccountNumByParamKeyParamValueTime" resultType="Integer" parameterType="map">
+        SELECT  COUNT(*)
+        FROM    go_member_account
+        WHERE   type != '1'
+        AND     pay LIKE '%账户%'
+        AND     uid NOT IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND time >= #{startTime,jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND time  <![CDATA[ <= ]]> #{endTime,jdbcType=CHAR}
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND uid = (SELECT uid FROM go_member WHERE mobile = #{paramValue,jdbcType = CHAR})
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        ORDER   BY  time DESC
+    </select>
+
+
+
+
+</mapper>

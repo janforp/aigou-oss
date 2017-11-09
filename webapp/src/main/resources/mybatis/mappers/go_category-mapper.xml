@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_category">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoCategory">
+        <id column="cateid" property="cateid" jdbcType="INTEGER"/>
+        <result column="parentid" property="parentid" jdbcType="INTEGER"/>
+        <result column="channel" property="channel" jdbcType="TINYINT"/>
+        <result column="model" property="model" jdbcType="TINYINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="catdir" property="catdir" jdbcType="CHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="info" property="info" jdbcType="VARCHAR"/>
+        <result column="order" property="order" jdbcType="INTEGER"/>
+        <result column="cids" property="cids" jdbcType="VARCHAR"/>
+        <result column="html" property="html" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT cateid, parentid, channel, model, name, 
+        catdir, url, info, `order`, cids, 
+        html
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoCategory">
+        <include refid="go_category.SELECT_All_Column"/>
+        FROM go_category
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoCategory">
+        DELETE FROM go_category
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoCategory">
+        INSERT INTO go_category ( cateid, 
+          parentid, channel, model, 
+          name, catdir, url, 
+          info, `order`, cids, 
+          html )
+        VALUES ( #{cateid,jdbcType=INTEGER}, 
+          #{parentid,jdbcType=INTEGER}, #{channel,jdbcType=TINYINT}, #{model,jdbcType=TINYINT}, 
+          #{name,jdbcType=VARCHAR}, #{catdir,jdbcType=CHAR}, #{url,jdbcType=VARCHAR}, 
+          #{info,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER}, #{cids,jdbcType=VARCHAR}, 
+          #{html,jdbcType=TINYINT} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoCategory">
+        INSERT INTO go_category
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                cateid,
+            <if test="parentid != null">
+                parentid,
+            </if>
+            <if test="channel != null">
+                channel,
+            </if>
+            <if test="model != null">
+                model,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="catdir != null">
+                catdir,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="info != null">
+                info,
+            </if>
+            <if test="order != null">
+                `order`,
+            </if>
+            <if test="cids != null">
+                cids,
+            </if>
+            <if test="html != null">
+                html,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{cateid,jdbcType=INTEGER},
+            <if test="parentid != null">
+                #{parentid,jdbcType=INTEGER},
+            </if>
+            <if test="channel != null">
+                #{channel,jdbcType=TINYINT},
+            </if>
+            <if test="model != null">
+                #{model,jdbcType=TINYINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="catdir != null">
+                #{catdir,jdbcType=CHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="order != null">
+                #{order,jdbcType=INTEGER},
+            </if>
+            <if test="cids != null">
+                #{cids,jdbcType=VARCHAR},
+            </if>
+            <if test="html != null">
+                #{html,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_category ( cateid, 
+          parentid, channel, model, 
+          name, catdir, url, 
+          info, `order`, cids, 
+          html )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.cateid,jdbcType=INTEGER}, 
+            #{item.parentid,jdbcType=INTEGER}, #{item.channel,jdbcType=TINYINT}, #{item.model,jdbcType=TINYINT}, 
+            #{item.name,jdbcType=VARCHAR}, #{item.catdir,jdbcType=CHAR}, #{item.url,jdbcType=VARCHAR}, 
+            #{item.info,jdbcType=VARCHAR}, #{item.order,jdbcType=INTEGER}, #{item.cids,jdbcType=VARCHAR}, 
+            #{item.html,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoCategory">
+        UPDATE go_category
+        <set>
+            <if test="parentid != null">
+                parentid = #{parentid,jdbcType=INTEGER},
+            </if>
+            <if test="channel != null">
+                channel = #{channel,jdbcType=TINYINT},
+            </if>
+            <if test="model != null">
+                model = #{model,jdbcType=TINYINT},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="catdir != null">
+                catdir = #{catdir,jdbcType=CHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="order != null">
+                `order` = #{order,jdbcType=INTEGER},
+            </if>
+            <if test="cids != null">
+                cids = #{cids,jdbcType=VARCHAR},
+            </if>
+            <if test="html != null">
+                html = #{html,jdbcType=TINYINT},
+            </if>
+        </set>
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoCategory">
+        UPDATE go_category
+        SET parentid = #{parentid,jdbcType=INTEGER},
+            channel = #{channel,jdbcType=TINYINT},
+            model = #{model,jdbcType=TINYINT},
+            name = #{name,jdbcType=VARCHAR},
+            catdir = #{catdir,jdbcType=CHAR},
+            url = #{url,jdbcType=VARCHAR},
+            info = #{info,jdbcType=VARCHAR},
+            `order` = #{order,jdbcType=INTEGER},
+            cids = #{cids,jdbcType=VARCHAR},
+            html = #{html,jdbcType=TINYINT}
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </update>
+</mapper>

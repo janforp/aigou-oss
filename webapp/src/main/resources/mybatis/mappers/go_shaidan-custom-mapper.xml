@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_shaidan">
+
+    <select id="selectRecordByShopIdAndUserId" resultMap="BaseResultMap" parameterType="map">
+        <include refid="go_shaidan.SELECT_All_Column"/>
+        FROM go_shaidan
+        WHERE sd_userid = #{userId,jdbcType=INTEGER}
+        AND sd_shopid = #{shopId,jdbcType=INTEGER}
+    </select>
+
+
+
+    <select id="selectReleaseCount" parameterType="map" resultType="Integer">
+        SELECT COUNT(*)
+        FROM go_shaidan
+        WHERE sd_userid IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND sd_time >= #{startTime, jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND sd_time <![CDATA[ <= ]]> #{endTime, jdbcType=CHAR}
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND sd_userid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND sd_userid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND sd_userid IN (SELECT uid FROM go_member WHERE mobile = #{paramValue, jdbcType = CHAR})
+                </when>
+                <when test="paramKey == 'email'">
+                    AND sd_userid IN (SELECT uid FROM go_member WHERE email = #{paramValue, jdbcType = VARCHAR})
+                </when>
+                <when test="paramKey == 'title'">
+                    AND sd_shopid IN (SELECT id FROM go_shoplist WHERE title LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="selectReleaseOrder" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_shaidan.SELECT_All_Column"/>
+        FROM go_shaidan
+        WHERE sd_userid IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND sd_time >= #{startTime, jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND sd_time <![CDATA[ <= ]]> #{endTime, jdbcType=CHAR}
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND sd_userid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND sd_userid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND sd_userid IN (SELECT uid FROM go_member WHERE mobile = #{paramValue, jdbcType = CHAR})
+                </when>
+                <when test="paramKey == 'email'">
+                    AND sd_userid IN (SELECT uid FROM go_member WHERE email = #{paramValue, jdbcType = VARCHAR})
+                </when>
+                <when test="paramKey == 'title'">
+                    AND sd_shopid IN (SELECT id FROM go_shoplist WHERE title LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rank != null">
+            <choose>
+                <when test="rank == 0">
+                    ORDER BY sd_time ASC
+                </when>
+                <when test="rank == 1">
+                    ORDER BY sd_time DESC
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+
+
+
+
+</mapper>

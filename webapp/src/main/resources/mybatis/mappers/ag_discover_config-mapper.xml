@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_discover_config">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgDiscoverConfig">
+        <id column="discover_id" property="discoverId" jdbcType="INTEGER"/>
+        <result column="discover_title" property="discoverTitle" jdbcType="VARCHAR"/>
+        <result column="discover_description" property="discoverDescription" jdbcType="VARCHAR"/>
+        <result column="discover_img" property="discoverImg" jdbcType="VARCHAR"/>
+        <result column="discover_url" property="discoverUrl" jdbcType="VARCHAR"/>
+        <result column="discover_order" property="discoverOrder" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT discover_id, discover_title, discover_description, discover_img, discover_url, 
+        discover_order
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgDiscoverConfig">
+        <include refid="ag_discover_config.SELECT_All_Column"/>
+        FROM ag_discover_config
+        WHERE discover_id = #{discoverId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgDiscoverConfig">
+        DELETE FROM ag_discover_config
+        WHERE discover_id = #{discoverId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgDiscoverConfig">
+        INSERT INTO ag_discover_config ( discover_title, 
+          discover_description, discover_img, discover_url, 
+          discover_order )
+        VALUES ( #{discoverTitle,jdbcType=VARCHAR}, 
+          #{discoverDescription,jdbcType=VARCHAR}, #{discoverImg,jdbcType=VARCHAR}, #{discoverUrl,jdbcType=VARCHAR}, 
+          #{discoverOrder,jdbcType=TINYINT} )
+        <selectKey keyProperty="discoverId" resultType="int">
+            SELECT LAST_INSERT_ID() AS discoverId
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgDiscoverConfig">
+        INSERT INTO ag_discover_config
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="discoverTitle != null">
+                discover_title,
+            </if>
+            <if test="discoverDescription != null">
+                discover_description,
+            </if>
+            <if test="discoverImg != null">
+                discover_img,
+            </if>
+            <if test="discoverUrl != null">
+                discover_url,
+            </if>
+            <if test="discoverOrder != null">
+                discover_order,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="discoverTitle != null">
+                #{discoverTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverDescription != null">
+                #{discoverDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverImg != null">
+                #{discoverImg,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverUrl != null">
+                #{discoverUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverOrder != null">
+                #{discoverOrder,jdbcType=TINYINT},
+            </if>
+        </trim>
+        <selectKey keyProperty="discoverId" resultType="int">
+            SELECT LAST_INSERT_ID() AS discoverId
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_discover_config ( discover_title, 
+          discover_description, discover_img, discover_url, 
+          discover_order )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.discoverTitle,jdbcType=VARCHAR}, 
+            #{item.discoverDescription,jdbcType=VARCHAR}, #{item.discoverImg,jdbcType=VARCHAR}, #{item.discoverUrl,jdbcType=VARCHAR}, 
+            #{item.discoverOrder,jdbcType=TINYINT}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgDiscoverConfig">
+        UPDATE ag_discover_config
+        <set>
+            <if test="discoverTitle != null">
+                discover_title = #{discoverTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverDescription != null">
+                discover_description = #{discoverDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverImg != null">
+                discover_img = #{discoverImg,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverUrl != null">
+                discover_url = #{discoverUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="discoverOrder != null">
+                discover_order = #{discoverOrder,jdbcType=TINYINT},
+            </if>
+        </set>
+        WHERE discover_id = #{discoverId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgDiscoverConfig">
+        UPDATE ag_discover_config
+        SET discover_title = #{discoverTitle,jdbcType=VARCHAR},
+            discover_description = #{discoverDescription,jdbcType=VARCHAR},
+            discover_img = #{discoverImg,jdbcType=VARCHAR},
+            discover_url = #{discoverUrl,jdbcType=VARCHAR},
+            discover_order = #{discoverOrder,jdbcType=TINYINT}
+        WHERE discover_id = #{discoverId,jdbcType=INTEGER}
+    </update>
+</mapper>

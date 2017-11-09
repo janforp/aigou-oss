@@ -1,0 +1,50 @@
+#updateDiv li{
+    float: left;
+    list-style: none;
+    margin-left: 20px;
+}
+
+#updateDiv li span:nth-child(1){
+    background-color: lightgrey;
+}
+
+#updateDiv li span span{
+    color: red;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#updateDiv li span button{
+    color: red;
+    position: relative;
+    bottom: 1px;
+}
+
+.cateAlert {
+    height: 200px;
+    width:600px;
+    background-color: #00a0a0;
+    position: relative;
+    left: 500px;
+    bottom:300px;
+    display: none;
+}
+
+.innerCateAlert {
+    height:180px;
+    width: 580px;
+    background-color: white;
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+.innerCateAlert select {
+    height:30px;
+    width: 150px;
+
+}
+
+.closeAlert {
+    color: red;position: relative;margin-left: 500px;bottom: 35px;font-size: large;
+}

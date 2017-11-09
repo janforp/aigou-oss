@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_shoplist">
+
+    <select id="selectUnreleaseCount" parameterType="map" resultType="Integer">
+        SELECT COUNT(id)
+        FROM go_shoplist
+        WHERE q_uid IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND q_end_time >= #{startTime, jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND q_end_time <![CDATA[ <= ]]> #{endTime, jdbcType=CHAR}
+        </if>
+        <if test="status != null">
+            <choose>
+                <when test="status == 0">
+                    AND id NOT IN (SELECT sd_shopid FROM go_shaidan WHERE sd_userid IN (SELECT user_id FROM ag_inner_account))
+                </when>
+                <when test="status == 1">
+                    AND id IN (SELECT sd_shopid FROM go_shaidan WHERE sd_userid IN (SELECT user_id FROM ag_inner_account))
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND q_uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE mobile = #{paramValue, jdbcType = CHAR})
+                </when>
+                <when test="paramKey == 'email'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE email = #{paramValue, jdbcType = VARCHAR})
+                </when>
+                <when test="paramKey == 'title'">
+                    AND title LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%')
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="selectUnreleaseOrder" parameterType="map" resultMap="BaseResultMap">
+        SELECT id, qishu, title, q_end_time, q_user_code, q_uid
+        FROM go_shoplist
+        WHERE q_uid IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND q_end_time >= #{startTime, jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND q_end_time <![CDATA[ <= ]]> #{endTime, jdbcType=CHAR}
+        </if>
+        <if test="status != null">
+            <choose>
+                <when test="status == 0">
+                    AND id NOT IN (SELECT sd_shopid FROM go_shaidan WHERE sd_userid IN (SELECT user_id FROM ag_inner_account))
+                </when>
+                <when test="status == 1">
+                    AND id IN (SELECT sd_shopid FROM go_shaidan WHERE sd_userid IN (SELECT user_id FROM ag_inner_account))
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND q_uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE mobile = #{paramValue, jdbcType = CHAR})
+                </when>
+                <when test="paramKey == 'email'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE email = #{paramValue, jdbcType = VARCHAR})
+                </when>
+                <when test="paramKey == 'title'">
+                    AND title LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%')
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rank != null">
+            <choose>
+                <when test="rank == 0">
+                    ORDER BY q_end_time ASC
+                </when>
+                <when test="rank == 1">
+                    ORDER BY q_end_time DESC
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <!-- 查询虚拟商品  -->
+    <select id="selectVirtualShopId" parameterType="Map" resultType="int" >
+        SELECT  id
+        FROM    go_shoplist
+        WHERE   q_uid = #{userId,jdbcType=INTEGER}
+        AND     id = (SELECT shopid FROM go_member_go_record WHERE code = #{orderCode,jdbcType=CHAR} AND uid = #{userId,jdbcType=INTEGER} AND huode !='0')
+        AND     cateid = '2'
+    </select>
+
+    <!-- 中奖发货管理列表查询  -->
+    <select id="selectLotteryOrder" parameterType="map" resultMap="BaseResultMap">
+        SELECT  id, qishu, title, q_end_time, q_user_code, q_uid
+        FROM    go_shoplist
+        WHERE   q_uid IS NOT NULL
+        AND     q_uid NOT IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND   q_end_time >= #{startTime,jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND   q_end_time  <![CDATA[ <= ]]> #{endTime,jdbcType=CHAR}
+        </if>
+        <if test="status != null">
+            <choose>
+                <when test="status == 1">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已付款,未发货,未完成%' AND huode != '0')
+                </when>
+                <when test="status == 2">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已付款,已发货,待收货%' AND huode != '0')
+                </when>
+                <when test="status == 3">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已付款,已发货,已完成%' AND huode != '0')
+                </when>
+                <when test="status == 4">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已作废%' AND huode != '0')
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND q_uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE mobile = #{paramValue, jdbcType = CHAR})
+                </when>
+                <when test="paramKey == 'email'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE email = #{paramValue, jdbcType = VARCHAR})
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rank != null">
+            <choose>
+                <when test="rank == 0">
+                    ORDER BY q_end_time ASC
+                </when>
+                <when test="rank == 1">
+                    ORDER BY q_end_time DESC
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="selectLotteryOrderNum" parameterType="map" resultType="Integer">
+        SELECT  COUNT(id)
+        FROM    go_shoplist
+        WHERE   q_uid IS NOT NULL
+        AND     q_uid NOT IN (SELECT user_id FROM ag_inner_account)
+        <if test="startTime != null">
+            AND   q_end_time >= #{startTime,jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND   q_end_time  <![CDATA[ <= ]]> #{endTime,jdbcType=CHAR}
+        </if>
+        <if test="status != null">
+            <choose>
+                <when test="status == 1">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已付款,未发货,未完成%' AND huode != '0')
+                </when>
+                <when test="status == 2">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已付款,已发货,待收货%' AND huode != '0')
+                </when>
+                <when test="status == 3">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已付款,已发货,已完成%' AND huode != '0')
+                </when>
+                <when test="status == 4">
+                    AND id IN (SELECT shopid FROM go_member_go_record WHERE status LIKE '%已作废%' AND huode != '0')
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND q_uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE mobile = #{paramValue, jdbcType = CHAR})
+                </when>
+                <when test="paramKey == 'email'">
+                    AND q_uid IN (SELECT uid FROM go_member WHERE email = #{paramValue, jdbcType = VARCHAR})
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        <if test="rank != null">
+            <choose>
+                <when test="rank == 0">
+                    ORDER BY q_end_time ASC
+                </when>
+                <when test="rank == 1">
+                    ORDER BY q_end_time DESC
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
+    <select id="selectLastShop" parameterType="Integer" resultMap="BaseResultMap">
+        <include refid="go_shoplist.SELECT_All_Column"/>
+        FROM go_shoplist
+        WHERE sid = #{sid,jdbcType=INTEGER}
+        ORDER BY qishu DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectLastShopLock" parameterType="Integer" resultMap="BaseResultMap">
+        <include refid="go_shoplist.SELECT_All_Column"/>
+        FROM go_shoplist
+        WHERE sid = #{sid,jdbcType=INTEGER}
+        ORDER BY qishu DESC
+        LIMIT 1
+        FOR UPDATE
+    </select>
+
+    <select id="selectAssignList" resultMap="BaseResultMap">
+        <include refid="go_shoplist.SELECT_All_Column"/>
+        FROM go_shoplist
+        WHERE q_uid IS NULL
+        AND quyu_end != '0'
+        ORDER BY id ASC
+    </select>
+
+    <select id="selectShopByIdLock" resultMap="BaseResultMap" parameterType="int">
+        <include refid="go_shoplist.SELECT_All_Column"/>
+        FROM    go_shoplist
+        WHERE   id = #{shopId,jdbcType=INTEGER}
+        FOR UPDATE
+    </select>
+
+    <select id="selectRandomList" parameterType="Integer" resultMap="BaseResultMap">
+        <include refid="go_shoplist.SELECT_All_Column"/>
+        FROM go_shoplist
+        WHERE q_uid IS NULL
+        ORDER BY rand()
+        LIMIT 0, #{itemNum,jdbcType=INTEGER}
+    </select>
+
+    <select id="getRecommendShopInShopList" resultType="com.aigou.oss.model.AgRecommendShop">
+        SELECT  sid AS shopId, title AS shopTitle
+        FROM    go_shoplist
+        WHERE   q_uid IS NULL
+        AND     shenyurenshu > 0
+        AND     sid NOT IN (SELECT shop_id FROM  ag_recommend_shop)
+        GROUP   BY  sid
+        ORDER   BY  sid DESC
+    </select>
+
+    <select id="getAllowShopInShopList" resultType="com.aigou.oss.model.AgShopAllowGain">
+        SELECT  sid AS shopId, title AS shopTitle
+        FROM    go_shoplist
+        WHERE   q_uid IS NULL
+        AND     shenyurenshu > 0
+        AND     sid NOT IN (SELECT shop_id FROM  ag_shop_allow_gain)
+        GROUP   BY  sid
+        ORDER   BY  sid DESC
+    </select>
+    <!-- 获取到还不在banner中的商品-->
+    <select id="getUnBanneredShops" resultType="com.aigou.oss.model.AgBanner">
+        SELECT  sid AS shopId, title AS bannerTitle
+        FROM    go_shoplist
+        WHERE   q_uid IS NULL
+        AND     shenyurenshu > 0
+        AND     sid NOT IN (SELECT shop_id FROM  ag_banner)
+        GROUP   BY  sid
+        ORDER   BY  sid DESC
+    </select>
+
+    <!-- 获取所有的商品-->
+    <select id="getAllShop" resultType="com.aigou.oss.model.AgBanner">
+        SELECT  sid AS shopId, title AS bannerTitle
+        FROM    go_shoplist
+        WHERE   q_uid IS NULL
+        AND     shenyurenshu > 0
+        GROUP   BY  sid
+        ORDER   BY  sid DESC
+    </select>
+
+    <select id="getGoodsListByStatus" resultMap="BaseResultMap" parameterType="map">
+        SELECT  id,sid,title,money,yunjiage,qishu,maxqishu,thumb,q_uid
+        FROM    go_shoplist
+        WHERE   '1'='1'
+        <if test="status == 1">
+            AND q_uid IS NULL
+        </if>
+        <if test="status == 0">
+            AND qishu = maxqishu
+            AND q_uid IS NOT NULL
+        </if>
+        <if test="title != null">
+            AND title LIKE CONCAT('%',#{title, jdbcType = CHAR},'%')
+        </if>
+        ORDER   BY  id DESC
+    </select>
+
+    <select id="getGoodsListByStatusTotalNum" resultType="int" parameterType="map">
+        SELECT  COUNT(*)
+        FROM    go_shoplist
+        WHERE   '1'='1'
+        <if test="status == 1">
+            AND q_uid IS NULL
+        </if>
+        <if test="status == 0">
+            AND qishu = maxqishu
+            AND q_uid IS NOT NULL
+        </if>
+        <if test="title != null">
+            AND title LIKE CONCAT('%',#{title, jdbcType = CHAR},'%')
+        </if>
+    </select>
+
+    <select id="checkGoShopListCode" resultType="int">
+        SELECT id
+        FROM   go_shoplist
+        WHERE  shenyurenshu != '0'
+        AND    id IN (SELECT s_id FROM go_shopcodes_1 WHERE s_len = '0');
+    </select>
+</mapper>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_recommend_shop">
+
+    <select id="getAllRecommend" resultMap="BaseResultMap">
+        <include refid="ag_recommend_shop.SELECT_All_Column"/>
+        FROM      ag_recommend_shop
+    </select>
+</mapper>

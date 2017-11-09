@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_brand">
+    <select id="getBrandByCateId" resultMap="BaseResultMap" parameterType="Integer">
+        <include refid="go_brand.SELECT_All_Column"/>
+        FROM    go_brand
+        WHERE   cateid LIKE CONCAT('%',#{cateId,jdbcType=INTEGER},'%')
+        ORDER   BY id
+    </select>
+
+    <select id="getAllBrandList" resultMap="BaseResultMap">
+        <include refid="go_brand.SELECT_All_Column"/>
+        FROM    go_brand
+        ORDER   BY  'order' DESC
+    </select>
+
+    <select id="getBrandListTotalNum" resultType="int">
+        SELECT  COUNT(*)
+        FROM    go_brand
+    </select>
+
+
+</mapper>

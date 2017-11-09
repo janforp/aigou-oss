@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member_addmoney_record">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="code" property="code" jdbcType="CHAR"/>
+        <result column="money" property="money" jdbcType="DECIMAL"/>
+        <result column="pay_type" property="payType" jdbcType="CHAR"/>
+        <result column="status" property="status" jdbcType="CHAR"/>
+        <result column="time" property="time" jdbcType="INTEGER"/>
+        <result column="score" property="score" jdbcType="INTEGER"/>
+        <result column="scookies" property="scookies" jdbcType="VARCHAR"/>
+        <result column="hbmoney" property="hbmoney" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT id, uid, code, money, pay_type, 
+        status, time, score, scookies, hbmoney
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        <include refid="go_member_addmoney_record.SELECT_All_Column"/>
+        FROM go_member_addmoney_record
+        WHERE id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        DELETE FROM go_member_addmoney_record
+        WHERE id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        INSERT INTO go_member_addmoney_record ( uid, 
+          code, money, pay_type, 
+          status, time, score, 
+          scookies, hbmoney )
+        VALUES ( #{uid,jdbcType=INTEGER}, 
+          #{code,jdbcType=CHAR}, #{money,jdbcType=DECIMAL}, #{payType,jdbcType=CHAR}, 
+          #{status,jdbcType=CHAR}, #{time,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, 
+          #{scookies,jdbcType=VARCHAR}, #{hbmoney,jdbcType=INTEGER} )
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        INSERT INTO go_member_addmoney_record
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="money != null">
+                money,
+            </if>
+            <if test="payType != null">
+                pay_type,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="scookies != null">
+                scookies,
+            </if>
+            <if test="hbmoney != null">
+                hbmoney,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=CHAR},
+            </if>
+            <if test="money != null">
+                #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="payType != null">
+                #{payType,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="scookies != null">
+                #{scookies,jdbcType=VARCHAR},
+            </if>
+            <if test="hbmoney != null">
+                #{hbmoney,jdbcType=INTEGER},
+            </if>
+        </trim>
+        <selectKey keyProperty="id" resultType="int">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO go_member_addmoney_record ( uid, 
+          code, money, pay_type, 
+          status, time, score, 
+          scookies, hbmoney )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.uid,jdbcType=INTEGER}, 
+            #{item.code,jdbcType=CHAR}, #{item.money,jdbcType=DECIMAL}, #{item.payType,jdbcType=CHAR}, 
+            #{item.status,jdbcType=CHAR}, #{item.time,jdbcType=INTEGER}, #{item.score,jdbcType=INTEGER}, 
+            #{item.scookies,jdbcType=VARCHAR}, #{item.hbmoney,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        UPDATE go_member_addmoney_record
+        <set>
+            <if test="uid != null">
+                uid = #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=CHAR},
+            </if>
+            <if test="money != null">
+                money = #{money,jdbcType=DECIMAL},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=INTEGER},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="scookies != null">
+                scookies = #{scookies,jdbcType=VARCHAR},
+            </if>
+            <if test="hbmoney != null">
+                hbmoney = #{hbmoney,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.GoMemberAddmoneyRecord">
+        UPDATE go_member_addmoney_record
+        SET uid = #{uid,jdbcType=INTEGER},
+            code = #{code,jdbcType=CHAR},
+            money = #{money,jdbcType=DECIMAL},
+            pay_type = #{payType,jdbcType=CHAR},
+            status = #{status,jdbcType=CHAR},
+            time = #{time,jdbcType=INTEGER},
+            score = #{score,jdbcType=INTEGER},
+            scookies = #{scookies,jdbcType=VARCHAR},
+            hbmoney = #{hbmoney,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

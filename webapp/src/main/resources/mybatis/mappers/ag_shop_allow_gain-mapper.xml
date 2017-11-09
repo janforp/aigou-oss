@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_shop_allow_gain">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgShopAllowGain">
+        <id column="shop_id" property="shopId" jdbcType="INTEGER"/>
+        <result column="shop_title" property="shopTitle" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT shop_id, shop_title
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgShopAllowGain">
+        <include refid="ag_shop_allow_gain.SELECT_All_Column"/>
+        FROM ag_shop_allow_gain
+        WHERE shop_id = #{shopId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgShopAllowGain">
+        DELETE FROM ag_shop_allow_gain
+        WHERE shop_id = #{shopId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgShopAllowGain">
+        INSERT INTO ag_shop_allow_gain ( shop_id, 
+          shop_title )
+        VALUES ( #{shopId,jdbcType=INTEGER}, 
+          #{shopTitle,jdbcType=VARCHAR} )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgShopAllowGain">
+        INSERT INTO ag_shop_allow_gain
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                shop_id,
+            <if test="shopTitle != null">
+                shop_title,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+                #{shopId,jdbcType=INTEGER},
+            <if test="shopTitle != null">
+                #{shopTitle,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_shop_allow_gain ( shop_id, 
+          shop_title )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.shopId,jdbcType=INTEGER}, 
+            #{item.shopTitle,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgShopAllowGain">
+        UPDATE ag_shop_allow_gain
+        <set>
+            <if test="shopTitle != null">
+                shop_title = #{shopTitle,jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE shop_id = #{shopId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgShopAllowGain">
+        UPDATE ag_shop_allow_gain
+        SET shop_title = #{shopTitle,jdbcType=VARCHAR}
+        WHERE shop_id = #{shopId,jdbcType=INTEGER}
+    </update>
+</mapper>

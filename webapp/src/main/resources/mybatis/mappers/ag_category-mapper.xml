@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ag_category">
+    <resultMap id="BaseResultMap" type="com.aigou.oss.model.AgCategory">
+        <id column="cateid" property="cateid" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="order" property="order" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="SELECT_All_Column">
+        SELECT cateid, name, url, `order`
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.aigou.oss.model.AgCategory">
+        <include refid="ag_category.SELECT_All_Column"/>
+        FROM ag_category
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.aigou.oss.model.AgCategory">
+        DELETE FROM ag_category
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.aigou.oss.model.AgCategory">
+        INSERT INTO ag_category ( name, 
+          url, `order` )
+        VALUES ( #{name,jdbcType=VARCHAR}, 
+          #{url,jdbcType=VARCHAR}, #{order,jdbcType=INTEGER} )
+        <selectKey keyProperty="cateid" resultType="int">
+            SELECT LAST_INSERT_ID() AS cateid
+        </selectKey>
+    </insert>
+    <insert id="insertSelective" parameterType="com.aigou.oss.model.AgCategory">
+        INSERT INTO ag_category
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="name != null">
+                name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="order != null">
+                `order`,
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffixOverrides="," suffix=")">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="order != null">
+                #{order,jdbcType=INTEGER},
+            </if>
+        </trim>
+        <selectKey keyProperty="cateid" resultType="int">
+            SELECT LAST_INSERT_ID() AS cateid
+        </selectKey>
+    </insert>
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ag_category ( name, 
+          url, `order` )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.name,jdbcType=VARCHAR}, 
+            #{item.url,jdbcType=VARCHAR}, #{item.order,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aigou.oss.model.AgCategory">
+        UPDATE ag_category
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="order != null">
+                `order` = #{order,jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aigou.oss.model.AgCategory">
+        UPDATE ag_category
+        SET name = #{name,jdbcType=VARCHAR},
+            url = #{url,jdbcType=VARCHAR},
+            `order` = #{order,jdbcType=INTEGER}
+        WHERE cateid = #{cateid,jdbcType=INTEGER}
+    </update>
+</mapper>

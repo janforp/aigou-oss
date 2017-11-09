@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="go_member_go_record">
+    <select id="selectRecordByShopIdAndHuode" resultMap="BaseResultMap" parameterType="map">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopId,jdbcType=INTEGER}
+        AND huode = #{huode,jdbcType=CHAR}
+    </select>
+
+    <select id="selectRecordByUserIdAndShopIdAndOrderCode" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM    go_member_go_record
+        WHERE   uid = #{userId,jdbcType=INTEGER}
+        AND     shopid= #{shopId,jdbcType=INTEGER}
+        AND     code = #{orderCode,jdbcType=CHAR}
+    </select>
+
+    <update id="updateOrderStatusByOrderCodeUserIdShopIdOrderCodelotteryCode"  parameterType="map">
+        UPDATE  go_member_go_record
+        <if test="orderStatus != null">
+            <choose>
+                <when test="orderStatus == 1 ">
+                    SET     status = '已付款,未发货,未完成'
+                </when>
+                <when test="orderStatus == 2 ">
+                    SET     status = '已付款,已发货,待收货'
+                </when>
+                <when test="orderStatus == 3 ">
+                    SET     status = '已付款,已发货,已完成'
+                </when>
+                <when test="orderStatus == 4 ">
+                    SET     status = '已付款,已发货,已作废'
+                </when>
+                <otherwise></otherwise>
+            </choose>
+        </if>
+        WHERE   uid = #{userId,jdbcType=INTEGER}
+        AND     shopid = #{shopId,jdbcType=INTEGER}
+        AND     code = #{orderCode,jdbcType=CHAR}
+        AND     huode = #{lotteryCode,jdbcType=CHAR}
+    </update>
+
+    <select id="selectLotteryRecord" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        AND uid >= #{scopeBegin,jdbcType=INTEGER}
+        AND uid <![CDATA[ <= ]]> #{scopeEnd,jdbcType=INTEGER}
+        ORDER BY rand()
+        LIMIT 1
+    </select>
+
+    <select id="selectRecordByShopId" parameterType="Integer" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        LIMIT 1
+    </select>
+
+    <select id="selectRecordByTime" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE  time  <![CDATA[ < ]]> #{time,jdbcType=CHAR}
+        ORDER BY id DESC
+        LIMIT 0, #{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectLotteryRecordByCode" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        AND goucode LIKE CONCAT('%',#{code ,jdbcType = VARCHAR},'%')
+    </select>
+
+    <select id="selectRecordByShopidAndQishu" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        ORDER BY id DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectRealRecord" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        AND uid NOT IN (SELECT user_id FROM ag_inner_account)
+        ORDER BY id DESC
+        LIMIT 1
+    </select>
+
+    <select id="selectMaximumRecord" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        ORDER BY gonumber DESC
+        LIMIT 1
+    </select>
+
+    <!--分页查询用户的购买纪录 -->
+    <select id="selectRecordByUid" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM    go_member_go_record
+        WHERE   uid = #{userId,jdbcType=INTEGER}
+        ORDER   BY  time DESC
+    </select>
+
+    <!--查询用户的购买纪录总数量 -->
+    <select id="selectTotalRecordByUid" parameterType="map" resultType="Integer">
+        SELECT  COUNT(*)
+        FROM    go_member_go_record
+        WHERE   uid = #{userId,jdbcType=INTEGER}
+        ORDER   BY  time DESC
+    </select>
+
+    <select id="selectInnerRecord" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        AND uid IN (SELECT user_id FROM ag_inner_account)
+        ORDER BY rand()
+        LIMIT 1
+    </select>
+
+    <select id="selectRecordById" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE  id  <![CDATA[ <= ]]> #{id,jdbcType=INTEGER}
+        ORDER BY id DESC
+        LIMIT 0, #{pageSize,jdbcType=INTEGER}
+    </select>
+
+    <!-- 购买查询  分页-->
+    <select id="findRecordByParamKeyParamValueTime" resultMap="BaseResultMap" parameterType="map">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM    go_member_go_record
+        WHERE   uid NOT IN (SELECT user_id FROM ag_inner_account)
+        AND     status LIKE '%已付款%'
+        <if test="startTime != null">
+            AND time >= #{startTime,jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND time  <![CDATA[ <= ]]> #{endTime,jdbcType=CHAR}
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND uid = (SELECT uid FROM go_member WHERE mobile = #{paramValue,jdbcType = CHAR})
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        ORDER   BY  time  DESC
+    </select>
+
+    <!-- 购买查询  分页-->
+    <select id="findRecordNumByParamKeyParamValueTime" resultType="Integer" parameterType="map">
+        SELECT  COUNT(*)
+        FROM    go_member_go_record
+        WHERE   uid NOT IN (SELECT user_id FROM ag_inner_account)
+        AND     status LIKE '%已付款%'
+        <if test="startTime != null">
+            AND time >= #{startTime,jdbcType=CHAR}
+        </if>
+        <if test="endTime != null">
+            AND time  <![CDATA[ <= ]]> #{endTime,jdbcType=CHAR}
+        </if>
+        <if test="paramValue != null">
+            <choose>
+                <when test="paramKey == 'userId'">
+                    AND uid = #{paramValue, jdbcType=INTEGER}
+                </when>
+                <when test="paramKey == 'nickName'">
+                    AND uid IN (SELECT uid FROM go_member WHERE username LIKE CONCAT('%',#{paramValue, jdbcType = CHAR},'%'))
+                </when>
+                <when test="paramKey == 'mobile'">
+                    AND uid = (SELECT uid FROM go_member WHERE mobile = #{paramValue,jdbcType = CHAR})
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </if>
+        ORDER   BY  time DESC
+    </select>
+
+
+    <select id="selectAllowLotteryRecord" parameterType="map" resultMap="BaseResultMap">
+        <include refid="go_member_go_record.SELECT_All_Column"/>
+        FROM go_member_go_record
+        WHERE shopid = #{shopid,jdbcType=INTEGER}
+        AND shopqishu = #{nper,jdbcType=INTEGER}
+        AND uid IN (SELECT uid FROM ag_allow_gain_times WHERE times > 0)
+        ORDER BY rand()
+        LIMIT 1
+    </select>
+
+
+
+
+    <!--虚拟商品充值之后,自动修改订单状态-->
+    <update id="updateOrderCodeByUserIdShopIdOrderCode">
+        UPDATE    go_member_go_record
+        SET       status = '已付款,已发货,已完成',
+                  company = '无需物流',
+                  company_code = '无需物流',
+                  company_money = '0.0'
+        WHERE     uid = #{userId, jdbcType=INTEGER}
+        AND       shopid = #{shopId,jdbcType=INTEGER}
+        AND       code = #{orderCode,jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>
